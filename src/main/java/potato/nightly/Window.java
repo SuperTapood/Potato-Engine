@@ -6,11 +6,17 @@ import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
 import potato.nightly.fonts.Batch;
 import potato.nightly.fonts.CFont;
-import potato.nightly.listeners.*;
-import potato.nightly.render.*;
+import potato.nightly.fonts.CharInfo;
+import potato.nightly.fonts.Sdf;
+import potato.nightly.listeners.KeyListener;
+import potato.nightly.listeners.MouseListener;
+import potato.nightly.render.Camera;
+import potato.nightly.render.Shader;
 
-import java.text.MessageFormat;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Random;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
@@ -18,11 +24,6 @@ import static org.lwjgl.opengl.GL11.glClearColor;
 import static org.lwjgl.opengl.GL11C.GL_COLOR_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11C.glClear;
 import static org.lwjgl.opengl.GL15.*;
-import static org.lwjgl.opengl.GL20.glEnableVertexAttribArray;
-import static org.lwjgl.opengl.GL20.glVertexAttribPointer;
-import static org.lwjgl.opengl.GL30.glBindVertexArray;
-import static org.lwjgl.opengl.GL30.glGenVertexArrays;
-import static org.lwjgl.opengl.GL31.GL_TEXTURE_BUFFER;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 
@@ -131,19 +132,25 @@ public class Window {
     }
 
     private void loop() {
-         this.font = new CFont("C:/Windows/Fonts/Arial.ttf", 64);
+        Sdf.generateCodepointBitmap('G', "C:/Windows/Fonts/arial.ttf", 32);
+        //this.font = new CFont("C:/Windows/Fonts/Arial.ttf", 64);
         
         //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         //glEnable(GL_TEXTURE_2D);
 
         Shader fontShader = new Shader("assets/shaders/fontShader.glsl");
+        Shader sdfShader = new Shader("assets/shaders/sdfShader.glsl");
         Batch batch = new Batch();
         batch.shader = fontShader;
+        batch.sdfShader = sdfShader;
         batch.font = font;
         batch.initBatch();
         
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+        CharInfo oneQuad = new CharInfo(0, 0, 1, 1);
+        oneQuad.calculateTextureCoordinates(1, 1);
 
         Random random = new Random();
 
@@ -153,18 +160,19 @@ public class Window {
 
         while (!glfwWindowShouldClose(glfwWindow)) {
             glClear(GL_COLOR_BUFFER_BIT);
-            glClearColor(0, 0, 0, 1);
+            glClearColor(0.1f, 0.09f, 0.1f, 1);
 
-            batch.addText("Hello world!", 200, 200, 1, 0xFF00AB0);
-            batch.addText("My name is SuperTapood!", 100, 300, 1.1f, 0xAA01BB);
+//            batch.addText("Hello world!", 200, 200, 1, 0xFF00AB0);
+//            batch.addText("My name is SuperTapood!", 100, 300, 1.1f, 0xAA01BB);
+//
+//            StringBuilder message = new StringBuilder();
+//            for (int i = 0; i < 10; i++){
+//                message.append((char)(random.nextInt('z' - 'a') + 'a'));
+//            }
 
-            StringBuilder message = new StringBuilder();
-            for (int i = 0; i < 10; i++){
-                message.append((char)(random.nextInt('z' - 'a') + 'a'));
-            }
+//            batch.addText(message.toString(), 200,400, 1.1f, 0xAA01BB);
 
-            batch.addText(message.toString(), 200,400, 1.1f, 0xAA01BB);
-
+            batch.addCharacter(0, 0, 640.0f, oneQuad, 0xFF4500);
             batch.flushBatch();
 
             glfwSwapBuffers(glfwWindow);

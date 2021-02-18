@@ -35,6 +35,7 @@ public class Batch {
     public int vao;
     public int vbo;
     public Shader shader;
+    public Shader sdfShader;
     public CFont font;
 
     public void generateEbo() {
@@ -81,11 +82,13 @@ public class Batch {
         glBufferSubData(GL_ARRAY_BUFFER, 0, vertices);
 
         // Draw the buffer that we just uploaded
-        shader.use();
+        //shader.use();
+        sdfShader.use();
         glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_BUFFER, font.textureID);
-        shader.uploadTexture("uFontTexture", 0);
-        shader.uploadMat4f("uProjection", projection);
+        //glBindTexture(GL_TEXTURE_BUFFER, font.textureId);
+        glBindTexture(GL_TEXTURE_BUFFER, Sdf.textureId);
+        sdfShader.uploadTexture("uFontTexture", 0);
+        sdfShader.uploadMat4f("uProjection", projection);
 
         glBindVertexArray(vao);
 
