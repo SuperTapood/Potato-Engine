@@ -1,10 +1,11 @@
-import stable.*;
 import scenes.MainScene;
+
+import potato.stable.Window;
 
 public class Main {
 
     public static void main(String[] args) {
-        potato.Window window = new Window();
+        Window window = new Window();
         window.init();
         window.run();
 //        Window window = new Window();
