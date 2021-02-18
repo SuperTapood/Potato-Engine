@@ -1,4 +1,4 @@
-import potato.stable.Window;
+import potato.nightly.Window;
 
 public class Main {
 

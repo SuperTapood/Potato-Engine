@@ -4,10 +4,12 @@ import org.joml.Vector2f;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
+import potato.nightly.fonts.Batch;
 import potato.nightly.fonts.CFont;
 import potato.nightly.listeners.*;
 import potato.nightly.render.*;
 
+import java.text.MessageFormat;
 import java.util.*;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
@@ -35,9 +37,6 @@ public class Window {
     private Scene currentScene;
     private CFont font;
 
-
-    private int vao;
-
     private float[] vertices = {
             // x, y,        r, g, b              ux, uy
             0.5f, 0.5f,     1.0f, 0.2f, 0.11f,   1.0f, 0.0f,
@@ -60,29 +59,6 @@ public class Window {
         this.keyListener = new KeyListener();
         this.currentScene = new Scene(this);
         this.camera = new Camera(new Vector2f(-250, 0));
-    }
-
-    private void uploadSquare() {
-        vao = glGenVertexArrays();
-        glBindVertexArray(vao);
-
-        int vbo = glGenBuffers();
-        glBindBuffer(GL_ARRAY_BUFFER, vbo);
-        glBufferData(GL_ARRAY_BUFFER, vertices, GL_STATIC_DRAW);
-
-        int ebo = glGenBuffers();
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices, GL_STATIC_DRAW);
-
-        int stride = 7 * Float.BYTES;
-        glVertexAttribPointer(0, 2, GL_FLOAT, false, stride, 0);
-        glEnableVertexAttribArray(0);
-
-        glVertexAttribPointer(1, 3, GL_FLOAT, false, stride, 2 * Float.BYTES);
-        glEnableVertexAttribArray(1);
-
-        glVertexAttribPointer(2, 2, GL_FLOAT, false, stride, 5 * Float.BYTES);
-        glEnableVertexAttribArray(2);
     }
 
     private void configWindowHints() {
@@ -112,7 +88,7 @@ public class Window {
         // Enable v-sync
         // setting this to 1 will make the fps flop 55 - 65 fps
         // setting this to 0 will run this at about 5K to 7K fps
-        glfwSwapInterval(1);
+        glfwSwapInterval(0);
 
 
         // Make the window visible
@@ -156,34 +132,48 @@ public class Window {
 
     private void loop() {
          this.font = new CFont("C:/Windows/Fonts/Arial.ttf", 64);
-        //glEnable(GL_BLEND);
+        
         //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         //glEnable(GL_TEXTURE_2D);
 
-        Vector2f[] texCoords = font.getCharacter('A').textureCoordinates;
-        vertices[5] = texCoords[0].x; vertices[6] = texCoords[0].y;
-        vertices[12] = texCoords[1].x; vertices[13] = texCoords[1].y;
-        vertices[19] = texCoords[2].x; vertices[20] = texCoords[2].y;
-        vertices[26] = texCoords[3].x; vertices[27] = texCoords[3].y;
-
-        uploadSquare();
-
         Shader fontShader = new Shader("assets/shaders/fontShader.glsl");
+        Batch batch = new Batch();
+        batch.shader = fontShader;
+        batch.font = font;
+        batch.initBatch();
+        
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+        Random random = new Random();
+
+//        float beginTime = (float) glfwGetTime();
+//        float endTime;
+//        float dt;
+
         while (!glfwWindowShouldClose(glfwWindow)) {
             glClear(GL_COLOR_BUFFER_BIT);
             glClearColor(0, 0, 0, 1);
 
-            fontShader.use();
-            glActiveTexture(GL_TEXTURE0);
-            glBindTexture(GL_TEXTURE_BUFFER, font.textureID);
-            fontShader.uploadTexture("uFontTexture", 0);
+            batch.addText("Hello world!", 200, 200, 1, 0xFF00AB0);
+            batch.addText("My name is SuperTapood!", 100, 300, 1.1f, 0xAA01BB);
 
-            glBindVertexArray(vao);
+            StringBuilder message = new StringBuilder();
+            for (int i = 0; i < 10; i++){
+                message.append((char)(random.nextInt('z' - 'a') + 'a'));
+            }
 
-            glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+            batch.addText(message.toString(), 200,400, 1.1f, 0xAA01BB);
+
+            batch.flushBatch();
 
             glfwSwapBuffers(glfwWindow);
             glfwPollEvents();
+
+//            endTime = (float) glfwGetTime();
+//            dt = endTime - beginTime;
+//            System.out.println(MessageFormat.format("{0}ms, {1} FPS", dt * 1000, 1 / dt));
+//            beginTime = endTime;
         }
 
 //        // this will show about 60.1 fps
