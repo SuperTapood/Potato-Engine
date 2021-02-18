@@ -1,13 +1,13 @@
-package scenes;
+package potato.nightly.scenes;
 
 import org.joml.Vector2f;
-import potato.stable.AssetPool;
-import potato.stable.Scene;
-import potato.stable.Transform;
-import potato.stable.Window;
-import potato.stable.render.Camera;
-import potato.stable.render.Sprite;
-import potato.stable.render.SpriteRenderer;
+import potato.nightly.AssetPool;
+import potato.nightly.Scene;
+import potato.nightly.Transform;
+import potato.nightly.Window;
+import potato.nightly.render.Camera;
+import potato.nightly.render.Sprite;
+import potato.nightly.render.SpriteRenderer;
 
 public class MainScene extends Scene {
     private final Window window;
