@@ -138,8 +138,8 @@ public class Window {
         //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         //glEnable(GL_TEXTURE_2D);
 
-        Shader fontShader = new Shader("assets/shaders/fontShader.glsl");
-        Shader sdfShader = new Shader("assets/shaders/sdfShader.glsl");
+        Shader fontShader = new Shader("src/main/java/potato/nightly/shaders/fontShader.glsl");
+        Shader sdfShader = new Shader("src/main/java/potato/nightly/shaders/sdfShader.glsl");
         Batch batch = new Batch();
         batch.shader = fontShader;
         batch.sdfShader = sdfShader;
