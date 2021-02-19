@@ -52,7 +52,7 @@ public class Window {
         this.mouseListener = new MouseListener();
         this.keyListener = new KeyListener();
         this.currentScene = new Scene(this);
-        this.camera = new Camera(new Vector2f(-250, 0));
+        this.camera = new Camera(new Vector2f(0, 0));
     }
 
     private void configWindowHints() {

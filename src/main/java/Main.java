@@ -1,8 +1,8 @@
-import potato.nightly.Run;
+import potato.nightly.Nightly;
 
 public class Main {
 
     public static void main(String[] args) {
-        Run.run();
+        Nightly.run();
     }
 }
