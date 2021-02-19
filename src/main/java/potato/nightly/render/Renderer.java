@@ -13,7 +13,7 @@ public class Renderer {
         this.batches = new ArrayList<>();
     }
 
-    public void add(SpriteRenderer sprite, Window window) {
+    public void add(Potato sprite, Window window) {
         boolean added = false;
         for (RenderBatch batch : batches) {
             if (batch.hasRoom() && batch.zIndex() == sprite.zIndex) {

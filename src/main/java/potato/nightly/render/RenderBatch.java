@@ -19,7 +19,7 @@ public class RenderBatch implements Comparable<RenderBatch> {
 
     private final int VERTEX_SIZE = 9;
 
-    private final SpriteRenderer[] sprites;
+    private final Potato[] sprites;
     private final float[] vertices;
     private final int[] texSlots = {0, 1, 2, 3, 4, 5, 6, 7};
     private final List<Texture> textures;
@@ -33,7 +33,7 @@ public class RenderBatch implements Comparable<RenderBatch> {
     public RenderBatch(int maxBatchSize, int zIndex, Window window) {
         this.zIndex = zIndex;
         shader = AssetPool.getShader("src/main/java/potato/nightly/shaders/default.glsl");
-        this.sprites = new SpriteRenderer[maxBatchSize];
+        this.sprites = new Potato[maxBatchSize];
         this.maxBatchSize = maxBatchSize;
 
         // 4 vertices quads
@@ -87,7 +87,7 @@ public class RenderBatch implements Comparable<RenderBatch> {
         glEnableVertexAttribArray(3);
     }
 
-    public void addSprite(SpriteRenderer spr) {
+    public void addSprite(Potato spr) {
         // Get index and add renderObject
         int index = this.numSprites;
         this.sprites[index] = spr;
@@ -110,7 +110,7 @@ public class RenderBatch implements Comparable<RenderBatch> {
     public void render(Window window) {
         boolean rebufferData = false;
         for (int i = 0; i < numSprites; i++) {
-            SpriteRenderer spr = sprites[i];
+            Potato spr = sprites[i];
             if (spr.isDirty()) {
                 loadVertexProperties(i);
                 spr.setClean();
@@ -149,7 +149,7 @@ public class RenderBatch implements Comparable<RenderBatch> {
     }
 
     private void loadVertexProperties(int index) {
-        SpriteRenderer sprite = this.sprites[index];
+        Potato sprite = this.sprites[index];
 
         // Find offset within array (4 vertices per sprite)
         int offset = index * 4 * VERTEX_SIZE;

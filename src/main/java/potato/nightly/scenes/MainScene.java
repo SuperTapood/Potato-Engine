@@ -7,12 +7,12 @@ import potato.nightly.Transform;
 import potato.nightly.Window;
 import potato.nightly.render.Camera;
 import potato.nightly.render.Sprite;
-import potato.nightly.render.SpriteRenderer;
+import potato.nightly.render.Potato;
 
 public class MainScene extends Scene {
     private final Window window;
     private Camera camera;
-    private SpriteRenderer obj;
+    private Potato obj;
 
     public MainScene(Window window) {
         super(window);
@@ -23,9 +23,7 @@ public class MainScene extends Scene {
         loadResources();
         this.camera = new Camera(new Vector2f(-250, 0));
 
-        obj = new SpriteRenderer("Object 1",
-                new Transform(new Vector2f(500, 100),
-                        new Vector2f(201, 113)), 0);
+        obj = new Potato(new Transform(500, 100, 201, 113), 0);
 
         Sprite sprite = new Sprite();
         sprite.setTexture(AssetPool.getTexture("sprites/buy_bg.png"));

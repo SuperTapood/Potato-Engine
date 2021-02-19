@@ -1,7 +1,7 @@
 package potato.nightly;
 
 import potato.nightly.render.Renderer;
-import potato.nightly.render.SpriteRenderer;
+import potato.nightly.render.Potato;
 
 import java.util.ArrayList;
 
@@ -9,33 +9,33 @@ public class Scene {
     public int length = 0;
     protected Renderer renderer = new Renderer();
     protected Window window;
-    private ArrayList<SpriteRenderer> objects = new ArrayList<>();
+    private ArrayList<Potato> objects = new ArrayList<>();
 
     public Scene(Window window) {
         this.window = window;
     }
 
     public void start(Window window) {
-        for (SpriteRenderer sr : objects) {
+        for (Potato sr : objects) {
             sr.start();
             this.renderer.add(sr, window);
         }
     }
 
-    public void append(SpriteRenderer obj) {
+    public void append(Potato obj) {
         objects.add(obj);
         length++;
         this.renderer.add(obj, window);
     }
 
-    public void extend(SpriteRenderer[] objects) {
-        for (SpriteRenderer o : objects) {
+    public void extend(Potato[] objects) {
+        for (Potato o : objects) {
             append(o);
         }
     }
 
-    public void extend(ArrayList<SpriteRenderer> objects) {
-        for (SpriteRenderer o : objects) {
+    public void extend(ArrayList<Potato> objects) {
+        for (Potato o : objects) {
             append(o);
         }
     }
@@ -44,22 +44,22 @@ public class Scene {
         this.extend(scene.objects);
     }
 
-    public void appstart(SpriteRenderer object) {
+    public void appstart(Potato object) {
         Scene newPotatoes = new Scene(window);
         newPotatoes.append(object);
         newPotatoes.extend(this);
         this.objects = newPotatoes.objects;
     }
 
-    public Object get(int index) {
+    public Potato get(int index) {
         if (index < 0) {
             index = this.length + index;
         }
         return this.objects.get(index);
     }
 
-    public int indexOf(Object object) {
-        return this.objects.indexOf(object);
+    public int indexOf(Potato sr) {
+        return this.objects.indexOf(sr);
     }
 
     @Override

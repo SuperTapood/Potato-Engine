@@ -2,7 +2,6 @@ package potato.nightly;
 
 
 import org.joml.Vector2f;
-import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
 import potato.nightly.listeners.KeyListener;
@@ -56,6 +55,19 @@ public class Window {
         this.camera = new Camera(new Vector2f(0, 0));
     }
 
+    public void init() {
+        // Setup an error callback
+        GLFWErrorCallback.createPrint(System.err).set();
+
+        // Initialize GLFW
+        if (!glfwInit()) {
+            throw new IllegalStateException("Unable to initialize GLFW.");
+        }
+        configWindowHints();
+        createWindow();
+        setCallbacks();
+    }
+
     private void configWindowHints() {
         // Configure GLFW
         glfwDefaultWindowHints();
@@ -83,25 +95,13 @@ public class Window {
         // Enable v-sync
         // setting this to 1 will make the fps flop 55 - 65 fps
         // setting this to 0 will run this at about 5K to 7K fps
-        glfwSwapInterval(0);
+        glfwSwapInterval(1);
 
 
         // Make the window visible
         glfwShowWindow(glfwWindow);
 
         GL.createCapabilities();
-    }
-
-    public void run() {
-        System.out.println("LWJGL Version " + Version.getVersion());
-
-        loop();
-
-        glfwFreeCallbacks(glfwWindow);
-        glfwDestroyWindow(glfwWindow);
-
-        glfwTerminate();
-        Objects.requireNonNull(glfwSetErrorCallback(null)).free();
     }
 
     private void setCallbacks() {
@@ -111,17 +111,16 @@ public class Window {
         glfwSetKeyCallback(glfwWindow, keyListener::keyCallback);
     }
 
-    public void init() {
-        // Setup an error callback
-        GLFWErrorCallback.createPrint(System.err).set();
+    public void run() {
+        //System.out.println("LWJGL Version " + Version.getVersion());
 
-        // Initialize GLFW
-        if (!glfwInit()) {
-            throw new IllegalStateException("Unable to initialize GLFW.");
-        }
-        configWindowHints();
-        createWindow();
-        setCallbacks();
+        loop();
+
+        glfwFreeCallbacks(glfwWindow);
+        glfwDestroyWindow(glfwWindow);
+
+        glfwTerminate();
+        Objects.requireNonNull(glfwSetErrorCallback(null)).free();
     }
 
     private void loop() {
