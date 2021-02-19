@@ -17,6 +17,7 @@ public class MainScene extends Scene {
     public MainScene(Window window) {
         super(window);
         this.window = window;
+        init();
     }
 
     public void init() {

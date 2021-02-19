@@ -53,6 +53,7 @@ public class Window {
         this.keyListener = new KeyListener();
         this.currentScene = new Scene(this);
         this.camera = new Camera(new Vector2f(0, 0));
+        init();
     }
 
     public void init() {
