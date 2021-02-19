@@ -1,4 +1,4 @@
-package potato.stable.render;
+package potato.nightly.render;
 
 import org.lwjgl.BufferUtils;
 
@@ -11,10 +11,6 @@ import static org.lwjgl.stb.STBImage.*;
 public class Texture {
     private int texID;
     private int width, height;
-
-//    public Texture(String filepath) {
-//
-//    }
 
     public void init(String filepath) {
 

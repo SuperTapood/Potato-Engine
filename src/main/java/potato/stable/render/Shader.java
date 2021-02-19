@@ -1,4 +1,4 @@
-package potato.stable.render;
+package potato.nightly.render;
 
 import org.joml.*;
 import org.lwjgl.BufferUtils;
@@ -28,20 +28,14 @@ public class Shader {
 
             // Find the first pattern after #type 'pattern'
             int index = source.indexOf("#type") + 6;
-            int eol = source.indexOf("\n", index);
-            if (eol == -1) {
-                System.out.println("brek");
-                System.out.println("index " + index);
-                //System.out.println(source);
-                System.out.println(source.substring(index));
-                System.out.println(source.indexOf("\n"));
-            }
+            int eol = source.indexOf("\r\n", index);
             String firstPattern = source.substring(index, eol).trim();
 
             // Find the second pattern after #type 'pattern'
             index = source.indexOf("#type", eol) + 6;
-            eol = source.indexOf("\n", index);
+            eol = source.indexOf("\r\n", index);
             String secondPattern = source.substring(index, eol).trim();
+
 
             if (firstPattern.equals("vertex")) {
                 vertexSource = splitString[1];

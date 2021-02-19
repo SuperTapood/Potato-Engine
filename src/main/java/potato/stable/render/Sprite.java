@@ -1,4 +1,4 @@
-package potato.stable.render;
+package potato.nightly.render;
 
 import org.joml.Vector2f;
 

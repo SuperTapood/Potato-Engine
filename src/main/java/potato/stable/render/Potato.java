@@ -1,21 +1,19 @@
-package potato.stable.render;
+package potato.nightly.render;
 
 import org.joml.Vector2f;
 import org.joml.Vector4f;
-import potato.stable.Transform;
+import potato.nightly.Transform;
 
-public class SpriteRenderer {
+public class Potato {
 
     private final Vector4f color = new Vector4f(1, 1, 1, 1);
-    private final String name;
     public Transform transform;
     public int zIndex;
     private Sprite sprite = new Sprite();
     private transient Transform lastTransform;
     private transient boolean isDirty = true;
 
-    public SpriteRenderer(String name, Transform transform, int zIndex) {
-        this.name = name;
+    public Potato(Transform transform, int zIndex) {
         this.transform = transform;
         this.zIndex = zIndex;
     }

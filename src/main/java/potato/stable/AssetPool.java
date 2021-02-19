@@ -1,7 +1,7 @@
-package potato.stable;
+package potato.nightly;
 
-import potato.stable.render.Shader;
-import potato.stable.render.Texture;
+import potato.nightly.render.Shader;
+import potato.nightly.render.Texture;
 
 import java.io.File;
 import java.util.HashMap;
@@ -13,24 +13,24 @@ public class AssetPool {
 
     public static Shader getShader(String resourceName) {
         File file = new File(resourceName);
-        if (shaders.containsKey(file.getAbsolutePath())) {
-            return shaders.get(file.getAbsolutePath());
+        if (AssetPool.shaders.containsKey(file.getAbsolutePath())) {
+            return AssetPool.shaders.get(file.getAbsolutePath());
         } else {
             Shader shader = new Shader(resourceName);
             shader.compile();
-            shaders.put(file.getAbsolutePath(), shader);
+            AssetPool.shaders.put(file.getAbsolutePath(), shader);
             return shader;
         }
     }
 
     public static Texture getTexture(String resourceName) {
         File file = new File(resourceName);
-        if (textures.containsKey(file.getAbsolutePath())) {
-            return textures.get(file.getAbsolutePath());
+        if (AssetPool.textures.containsKey(file.getAbsolutePath())) {
+            return AssetPool.textures.get(file.getAbsolutePath());
         } else {
             Texture texture = new Texture();
             texture.init(resourceName);
-            textures.put(file.getAbsolutePath(), texture);
+            AssetPool.textures.put(file.getAbsolutePath(), texture);
             return texture;
         }
     }

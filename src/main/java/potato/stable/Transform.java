@@ -1,4 +1,4 @@
-package potato.stable;
+package potato.nightly;
 
 import org.joml.Vector2f;
 
@@ -17,6 +17,10 @@ public class Transform {
 
     public Transform(Vector2f position, Vector2f scale) {
         init(position, scale);
+    }
+
+    public Transform(int x, int y, int width, int height){
+        init(new Vector2f(x, y), new Vector2f(width, height));
     }
 
     public void init(Vector2f position, Vector2f scale) {

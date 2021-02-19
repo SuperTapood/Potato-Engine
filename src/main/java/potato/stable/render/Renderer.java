@@ -1,6 +1,6 @@
-package potato.stable.render;
+package potato.nightly.render;
 
-import potato.stable.Window;
+import potato.nightly.Window;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,7 +13,7 @@ public class Renderer {
         this.batches = new ArrayList<>();
     }
 
-    public void add(SpriteRenderer sprite, Window window) {
+    public void add(Potato sprite, Window window) {
         boolean added = false;
         for (RenderBatch batch : batches) {
             if (batch.hasRoom() && batch.zIndex() == sprite.zIndex) {

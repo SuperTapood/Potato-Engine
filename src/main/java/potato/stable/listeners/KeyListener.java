@@ -1,4 +1,4 @@
-package potato.stable.listeners;
+package potato.nightly.listeners;
 
 import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
 import static org.lwjgl.glfw.GLFW.GLFW_RELEASE;
@@ -25,8 +25,8 @@ public class KeyListener {
 
     public String getKeys() {
         StringBuilder output = new StringBuilder("[ ");
-        for (int i = 0; i < keyPressed.length; i++) {
-            output.append(keyPressed[i]).append(" ");
+        for (boolean b : keyPressed) {
+            output.append(b).append(" ");
         }
         output.append("]");
         return output.toString();
