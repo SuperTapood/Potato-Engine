@@ -2,7 +2,6 @@ package potato.nightly;
 
 import potato.nightly.render.Renderer;
 import potato.nightly.render.SpriteRenderer;
-import potato.nightly.Window;
 
 import java.util.ArrayList;
 

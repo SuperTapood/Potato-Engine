@@ -7,12 +7,12 @@ import potato.stable.Transform;
 public class SpriteRenderer {
 
     private final Vector4f color = new Vector4f(1, 1, 1, 1);
+    private final String name;
     public Transform transform;
     public int zIndex;
     private Sprite sprite = new Sprite();
     private transient Transform lastTransform;
     private transient boolean isDirty = true;
-    private final String name;
 
     public SpriteRenderer(String name, Transform transform, int zIndex) {
         this.name = name;

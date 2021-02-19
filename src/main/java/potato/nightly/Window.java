@@ -1,5 +1,6 @@
 package potato.nightly;
 
+
 import org.joml.Vector2f;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
@@ -33,10 +34,10 @@ public class Window {
 
     private float[] vertices = {
             // x, y,        r, g, b              ux, uy
-            0.5f, 0.5f,     1.0f, 0.2f, 0.11f,   1.0f, 0.0f,
-            0.5f, -0.5f,    1.0f, 0.2f, 0.11f,   1.0f, 1.0f,
-            -0.5f, -0.5f,   1.0f, 0.2f, 0.11f,   0.0f, 1.0f,
-            -0.5f, 0.5f,    1.0f, 0.2f, 0.11f,   0.0f, 0.0f
+            0.5f, 0.5f, 1.0f, 0.2f, 0.11f, 1.0f, 0.0f,
+            0.5f, -0.5f, 1.0f, 0.2f, 0.11f, 1.0f, 1.0f,
+            -0.5f, -0.5f, 1.0f, 0.2f, 0.11f, 0.0f, 1.0f,
+            -0.5f, 0.5f, 1.0f, 0.2f, 0.11f, 0.0f, 0.0f
     };
 
     private int[] indices = {
@@ -65,9 +66,9 @@ public class Window {
         // do not maximize the window. This is done bc i want to implement
         // developer and actual dims check out the data resize class for more info.
         glfwWindowHint(GLFW_MAXIMIZED, GLFW_FALSE);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+//        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+//        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+//        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     }
 
     private void createWindow() {
@@ -139,7 +140,7 @@ public class Window {
         while (!glfwWindowShouldClose(glfwWindow)) {
             glClear(GL_COLOR_BUFFER_BIT);
 
-            if (frameTime >= perFrame){
+            if (frameTime >= perFrame) {
                 frameTime = 0;
                 currentScene.update(this);
                 glfwSwapBuffers(glfwWindow);

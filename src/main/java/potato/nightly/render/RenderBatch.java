@@ -2,8 +2,8 @@ package potato.nightly.render;
 
 import org.joml.Vector2f;
 import org.joml.Vector4f;
-import potato.nightly.Window;
 import potato.nightly.AssetPool;
+import potato.nightly.Window;
 
 import java.util.ArrayList;
 import java.util.List;

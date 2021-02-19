@@ -4,10 +4,13 @@ import org.joml.Vector2f;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
-import potato.stable.listeners.*;
-import potato.stable.render.*;
+import potato.stable.listeners.KeyListener;
+import potato.stable.listeners.MouseListener;
+import potato.stable.render.Camera;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
@@ -116,7 +119,7 @@ public class Window {
         float dt;
         while (!glfwWindowShouldClose(glfwWindow)) {
             glClear(GL_COLOR_BUFFER_BIT);
-            if (frameTime >= perFrame){
+            if (frameTime >= perFrame) {
                 System.out.println(1 / frameTime);
                 frameTime = 0;
                 //currentScene.update(this);

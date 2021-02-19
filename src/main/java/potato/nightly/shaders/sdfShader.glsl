@@ -16,8 +16,8 @@ void main()
     gl_Position = uProjection * vec4(aPos, -5, 1);
 }
 
-#type fragment
-#version 330 core
+    #type fragment
+    #version 330 core
 
 in vec2 fTexCoords;
 in vec3 fColor;
@@ -32,7 +32,7 @@ void main()
     float midpointCutoff = 0.49;
     float c = texture(uFontTexture, fTexCoords).r;
     if (c > upperPointCutoff)
-        color = vec4(1, 1, 1, 1) * vec4(fColor, 1);
+    color = vec4(1, 1, 1, 1) * vec4(fColor, 1);
     else if (c > midpointCutoff)
     {
         // [0.45, 5] -> [0, 1]
@@ -40,5 +40,5 @@ void main()
         color = vec4(1, 1, 1, smoothC) * vec4(fColor, 1);
     }
     else
-        color = vec4(0, 0, 0, 0);
+    color = vec4(0, 0, 0, 0);
 }

@@ -14,7 +14,6 @@ import java.nio.ByteBuffer;
 import static com.mlomb.freetypejni.FreeType.*;
 import static com.mlomb.freetypejni.FreeTypeConstants.FT_LOAD_RENDER;
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL11.GL_UNSIGNED_BYTE;
 
 public class Sdf {
     public static int textureId = -1;
@@ -52,7 +51,7 @@ public class Sdf {
             }
         }
 
-        minDistance = (float)Math.sqrt(minDistance);
+        minDistance = (float) Math.sqrt(minDistance);
         float output = (minDistance - 0.5f) / (spread - 0.5f);
         output *= state == 0 ? -1 : 1;
 
@@ -66,11 +65,11 @@ public class Sdf {
         int spread = upscaleResolution / 2;
 
         Library library = FreeType.newLibrary();
-        assert(library != null);
+        assert (library != null);
 
         Face font = library.newFace(fontFile, 0);
         FT_Set_Pixel_Sizes(font.getPointer(), 0, upscaleResolution);
-        if (FT_Load_Char(font.getPointer(), (char)codepoint, FT_LOAD_RENDER)) {
+        if (FT_Load_Char(font.getPointer(), (char) codepoint, FT_LOAD_RENDER)) {
             System.out.println("FreeType could not generate character.");
             free(library, font);
             return;
@@ -85,24 +84,24 @@ public class Sdf {
 //        System.out.println("Glyph width " + glyphWidth);
 //        System.out.println("Glyph Height " + glyphHeight);
 
-        float widthScale = (float)glyphWidth / (float)upscaleResolution;
-        float heightScale = (float)glyphHeight / (float)upscaleResolution;
-        int characterWidth = (int)((float)fontSize * widthScale);
-        int characterHeight = (int)((float)fontSize * heightScale);
+        float widthScale = (float) glyphWidth / (float) upscaleResolution;
+        float heightScale = (float) glyphHeight / (float) upscaleResolution;
+        int characterWidth = (int) ((float) fontSize * widthScale);
+        int characterHeight = (int) ((float) fontSize * heightScale);
         int bitmapWidth = characterWidth + padding * 2;
         int bitmapHeight = characterHeight + padding * 2;
-        float bitmapScaleX = (float)glyphWidth / (float)characterWidth;
-        float bitmapScaleY = (float)glyphHeight / (float)characterHeight;
+        float bitmapScaleX = (float) glyphWidth / (float) characterWidth;
+        float bitmapScaleY = (float) glyphHeight / (float) characterHeight;
         int[] bitmap = new int[bitmapWidth * bitmapHeight];
         for (int y = -padding; y < characterHeight + padding; y++) {
             for (int x = -padding; x < characterWidth + padding; x++) {
-                int pixelX = (int)mapRange(x, -padding, characterWidth + padding,
-                    -padding * bitmapScaleX, (characterWidth + padding) * bitmapScaleX);
-                int pixelY = (int)mapRange(y, -padding, characterHeight + padding,
-                    -padding * bitmapScaleY, (characterHeight + padding) * bitmapScaleY);
+                int pixelX = (int) mapRange(x, -padding, characterWidth + padding,
+                        -padding * bitmapScaleX, (characterWidth + padding) * bitmapScaleX);
+                int pixelY = (int) mapRange(y, -padding, characterHeight + padding,
+                        -padding * bitmapScaleY, (characterHeight + padding) * bitmapScaleY);
                 float val = findNearestPixel(pixelX, pixelY, glyphBitmap,
                         glyphWidth, glyphHeight, spread);
-                bitmap[(x + padding) + ((y + padding) * bitmapWidth)] = (int)(val * 255.0f);
+                bitmap[(x + padding) + ((y + padding) * bitmapWidth)] = (int) (val * 255.0f);
             }
         }
 
@@ -145,10 +144,10 @@ public class Sdf {
         image.getRGB(0, 0, image.getWidth(), image.getHeight(), pixels, 0, image.getWidth());
 
         ByteBuffer buffer = BufferUtils.createByteBuffer(image.getWidth() * image.getHeight() * 4);
-        for (int y=0; y < image.getHeight(); y++) {
-            for (int x=0; x < image.getWidth(); x++) {
+        for (int y = 0; y < image.getHeight(); y++) {
+            for (int x = 0; x < image.getWidth(); x++) {
                 int pixel = pixels[y * image.getWidth() + x];
-                byte r = (byte)((pixel >> 16) & 0xFF);
+                byte r = (byte) ((pixel >> 16) & 0xFF);
                 buffer.put(r);
                 buffer.put(r);
                 buffer.put(r);
