@@ -15,8 +15,8 @@ import java.util.Objects;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.opengl.GL11C.GL_COLOR_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11C.glClear;
+import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.glClear;
 import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
@@ -31,7 +31,7 @@ public class Window {
     private long glfwWindow;
     private Scene currentScene;
 
-    private float[] vertices = {
+    private final float[] vertices = {
             // x, y,        r, g, b              ux, uy
             0.5f, 0.5f, 1.0f, 0.2f, 0.11f, 1.0f, 0.0f,
             0.5f, -0.5f, 1.0f, 0.2f, 0.11f, 1.0f, 1.0f,
@@ -39,7 +39,7 @@ public class Window {
             -0.5f, 0.5f, 1.0f, 0.2f, 0.11f, 0.0f, 0.0f
     };
 
-    private int[] indices = {
+    private final int[] indices = {
             0, 1, 3,
             1, 2, 3
     };
@@ -76,8 +76,7 @@ public class Window {
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
         // don't make thy window resizable
         glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-        // do not maximize the window. This is done bc i want to implement
-        // developer and actual dims check out the data resize class for more info.
+        // do not maximize the window.
         glfwWindowHint(GLFW_MAXIMIZED, GLFW_FALSE);
 //        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 //        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -98,7 +97,6 @@ public class Window {
         // setting this to 0 will run this at about 5K to 7K fps
         glfwSwapInterval(1);
 
-
         // Make the window visible
         glfwShowWindow(glfwWindow);
 
@@ -114,14 +112,8 @@ public class Window {
 
     public void run() {
         //System.out.println("LWJGL Version " + Version.getVersion());
-
         loop();
-
-        glfwFreeCallbacks(glfwWindow);
-        glfwDestroyWindow(glfwWindow);
-
-        glfwTerminate();
-        Objects.requireNonNull(glfwSetErrorCallback(null)).free();
+        terminate();
     }
 
     private void loop() {
@@ -152,6 +144,15 @@ public class Window {
             System.out.println(MessageFormat.format("{0}ms, {1} FPS", dt * 1000, 1 / dt));
             beginTime = endTime;
         }
+    }
+
+
+    private void terminate() {
+        glfwFreeCallbacks(glfwWindow);
+        glfwDestroyWindow(glfwWindow);
+
+        glfwTerminate();
+        Objects.requireNonNull(glfwSetErrorCallback(null)).free();
     }
 
     public void addScene(String name, Scene scene) {

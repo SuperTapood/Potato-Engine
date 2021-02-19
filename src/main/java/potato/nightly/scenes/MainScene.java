@@ -10,21 +10,17 @@ import potato.nightly.render.Sprite;
 import potato.nightly.render.Potato;
 
 public class MainScene extends Scene {
-    private final Window window;
-    private Camera camera;
-    private Potato obj;
 
     public MainScene(Window window) {
         super(window);
-        this.window = window;
         init();
     }
 
     public void init() {
         loadResources();
-        this.camera = new Camera(new Vector2f(-250, 0));
+        Camera camera = new Camera(new Vector2f(-250, 0));
 
-        obj = new Potato(new Transform(500, 100, 201, 113), 0);
+        Potato obj = new Potato(new Transform(500, 100, 201, 113), 0);
 
         Sprite sprite = new Sprite();
         sprite.setTexture(AssetPool.getTexture("sprites/buy_bg.png"));
