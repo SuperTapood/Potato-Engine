@@ -45,10 +45,10 @@ public class Window {
     };
 
 
-    public Window() {
-        this.width = 1280;
-        this.height = 720;
-        this.title = "Window";
+    public Window(int width, int height, String title) {
+        this.width = width;
+        this.height = height;
+        this.title = title;
         this.mouseListener = new MouseListener();
         this.keyListener = new KeyListener();
         this.currentScene = new Scene(this);
