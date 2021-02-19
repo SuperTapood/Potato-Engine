@@ -28,12 +28,12 @@ public class MainScene extends Scene {
                         new Vector2f(201, 113)), 0);
 
         Sprite sprite = new Sprite();
-        sprite.setTexture(AssetPool.getTexture("assets/sprites/buy_bg.png"));
+        sprite.setTexture(AssetPool.getTexture("sprites/buy_bg.png"));
         obj.setSprite(sprite);
         this.append(obj);
     }
 
     private void loadResources() {
-        AssetPool.getShader("assets/shaders/default.glsl");
+        AssetPool.getShader("src/main/java/potato/nightly/shaders/default.glsl");
     }
 }

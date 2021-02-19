@@ -75,7 +75,7 @@ public class Batch {
         glEnableVertexAttribArray(2);
     }
 
-    public void flushBatch() {
+    public void flushBatch(int textureId) {
         // Clear the buffer on the GPU, and then upload the CPU contents, and then draw
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
         glBufferData(GL_ARRAY_BUFFER, Float.BYTES * VERTEX_SIZE * BATCH_SIZE, GL_DYNAMIC_DRAW);
@@ -86,7 +86,7 @@ public class Batch {
         sdfShader.use();
         glActiveTexture(GL_TEXTURE0);
         //glBindTexture(GL_TEXTURE_BUFFER, font.textureId);
-        glBindTexture(GL_TEXTURE_BUFFER, Sdf.textureId);
+        glBindTexture(GL_TEXTURE_BUFFER, textureId);
         sdfShader.uploadTexture("uFontTexture", 0);
         sdfShader.uploadMat4f("uProjection", projection);
 
@@ -101,7 +101,7 @@ public class Batch {
     public void addCharacter(float x, float y, float scale, CharInfo charInfo, int rgb) {
         // If we have no more room in the current batch, flush it and start with a fresh batch
         if (size >= BATCH_SIZE - 4) {
-            flushBatch();
+            flushBatch(font.textureId);
         }
 
         float r = (float)((rgb >> 16) & 0xFF) / 255.0f;

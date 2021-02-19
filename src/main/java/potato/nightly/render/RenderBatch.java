@@ -32,7 +32,7 @@ public class RenderBatch implements Comparable<RenderBatch> {
 
     public RenderBatch(int maxBatchSize, int zIndex, Window window) {
         this.zIndex = zIndex;
-        shader = AssetPool.getShader("assets/shaders/default.glsl");
+        shader = AssetPool.getShader("src/main/java/potato/nightly/shaders/default.glsl");
         this.sprites = new SpriteRenderer[maxBatchSize];
         this.maxBatchSize = maxBatchSize;
 

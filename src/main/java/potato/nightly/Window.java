@@ -4,23 +4,17 @@ import org.joml.Vector2f;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
-import potato.nightly.fonts.Batch;
-import potato.nightly.fonts.CFont;
-import potato.nightly.fonts.CharInfo;
-import potato.nightly.fonts.Sdf;
 import potato.nightly.listeners.KeyListener;
 import potato.nightly.listeners.MouseListener;
 import potato.nightly.render.Camera;
-import potato.nightly.render.Shader;
 
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Random;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.opengl.GL11.glClearColor;
 import static org.lwjgl.opengl.GL11C.GL_COLOR_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11C.glClear;
 import static org.lwjgl.opengl.GL15.*;
@@ -36,7 +30,6 @@ public class Window {
     private final Camera camera;
     private long glfwWindow;
     private Scene currentScene;
-    private CFont font;
 
     private float[] vertices = {
             // x, y,        r, g, b              ux, uy
@@ -127,86 +120,37 @@ public class Window {
         }
         configWindowHints();
         createWindow();
-        //glClearColor(0.1f, 0.09f, 0.1f, 1.0f);
         setCallbacks();
     }
 
     private void loop() {
-        Sdf.generateCodepointBitmap('G', "C:/Windows/Fonts/arial.ttf", 32);
-        //this.font = new CFont("C:/Windows/Fonts/Arial.ttf", 64);
-        
-        //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        //glEnable(GL_TEXTURE_2D);
-
-        Shader fontShader = new Shader("src/main/java/potato/nightly/shaders/fontShader.glsl");
-        Shader sdfShader = new Shader("src/main/java/potato/nightly/shaders/sdfShader.glsl");
-        Batch batch = new Batch();
-        batch.shader = fontShader;
-        batch.sdfShader = sdfShader;
-        batch.font = font;
-        batch.initBatch();
-        
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        CharInfo oneQuad = new CharInfo(0, 0, 1, 1);
-        oneQuad.calculateTextureCoordinates(1, 1);
-
-        Random random = new Random();
-
-//        float beginTime = (float) glfwGetTime();
-//        float endTime;
-//        float dt;
+        // this will show about 60.1 fps
+        float fps = 60.15f;
+        float perFrame = 1 / fps;
+        float beginTime = (float) glfwGetTime();
+        float endTime;
+        float frameTime = 0;
+        float dt;
+        glClearColor(0.1f, 0.09f, 0.1f, 1);
 
         while (!glfwWindowShouldClose(glfwWindow)) {
             glClear(GL_COLOR_BUFFER_BIT);
-            glClearColor(0.1f, 0.09f, 0.1f, 1);
 
-//            batch.addText("Hello world!", 200, 200, 1, 0xFF00AB0);
-//            batch.addText("My name is SuperTapood!", 100, 300, 1.1f, 0xAA01BB);
-//
-//            StringBuilder message = new StringBuilder();
-//            for (int i = 0; i < 10; i++){
-//                message.append((char)(random.nextInt('z' - 'a') + 'a'));
-//            }
-
-//            batch.addText(message.toString(), 200,400, 1.1f, 0xAA01BB);
-
-            batch.addCharacter(0, 0, 640.0f, oneQuad, 0xFF4500);
-            batch.flushBatch();
-
-            glfwSwapBuffers(glfwWindow);
+            if (frameTime >= perFrame){
+                frameTime = 0;
+                currentScene.update(this);
+                glfwSwapBuffers(glfwWindow);
+            }
             glfwPollEvents();
-
-//            endTime = (float) glfwGetTime();
-//            dt = endTime - beginTime;
-//            System.out.println(MessageFormat.format("{0}ms, {1} FPS", dt * 1000, 1 / dt));
-//            beginTime = endTime;
+            endTime = (float) glfwGetTime();
+            dt = endTime - beginTime;
+            frameTime += dt;
+            System.out.println(MessageFormat.format("{0}ms, {1} FPS", dt * 1000, 1 / dt));
+            beginTime = endTime;
         }
-
-//        // this will show about 60.1 fps
-//        float fps = 60.15f;
-//        float perFrame = 1 / fps;
-//        float beginTime = (float) glfwGetTime();
-//        float endTime;
-//        float frameTime = 0;
-//        float dt;
-//        while (!glfwWindowShouldClose(glfwWindow)) {
-//            glClear(GL_COLOR_BUFFER_BIT);
-//            if (frameTime >= perFrame){
-//                System.out.println(1 / frameTime);
-//                frameTime = 0;
-//                //currentScene.update(this);
-//                glfwSwapBuffers(glfwWindow);
-//            }
-//            glfwPollEvents();
-//            endTime = (float) glfwGetTime();
-//            dt = endTime - beginTime;
-//            frameTime += dt;
-//            //System.out.println(MessageFormat.format("{0}ms, {1} FPS", dt * 1000, 1 / dt));
-//            beginTime = endTime;
-//        }
-
     }
 
     public void addScene(String name, Scene scene) {
