@@ -1,8 +1,8 @@
-package potato.nightly;
+package potato.stable;
 
-import potato.nightly.scenes.MainScene;
+import potato.stable.scenes.MainScene;
 
-public class Nightly {
+public class Stable {
     public static void run() {
         Window window = new Window(1280, 720, "Engine Test");
         MainScene main = new MainScene(window);

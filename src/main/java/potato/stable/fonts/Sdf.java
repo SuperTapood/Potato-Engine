@@ -1,4 +1,4 @@
-package potato.nightly.fonts;
+package potato.stable.fonts;
 
 import com.mlomb.freetypejni.Face;
 import com.mlomb.freetypejni.FreeType;

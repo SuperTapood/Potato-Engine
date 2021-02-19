@@ -1,4 +1,4 @@
-package potato.nightly.listeners;
+package potato.stable.listeners;
 
 import java.text.MessageFormat;
 

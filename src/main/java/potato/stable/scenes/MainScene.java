@@ -1,13 +1,13 @@
-package potato.nightly.scenes;
+package potato.stable.scenes;
 
 import org.joml.Vector2f;
-import potato.nightly.AssetPool;
-import potato.nightly.Scene;
-import potato.nightly.Transform;
-import potato.nightly.Window;
-import potato.nightly.render.Camera;
-import potato.nightly.render.Sprite;
-import potato.nightly.render.Potato;
+import potato.stable.AssetPool;
+import potato.stable.Scene;
+import potato.stable.Transform;
+import potato.stable.Window;
+import potato.stable.render.Camera;
+import potato.stable.render.Sprite;
+import potato.stable.render.Potato;
 
 public class MainScene extends Scene {
 
@@ -29,6 +29,6 @@ public class MainScene extends Scene {
     }
 
     private void loadResources() {
-        AssetPool.getShader("src/main/java/potato/nightly/shaders/default.glsl");
+        AssetPool.getShader("src/main/java/potato/stable/shaders/default.glsl");
     }
 }

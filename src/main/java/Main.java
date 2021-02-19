@@ -1,8 +1,8 @@
-import potato.nightly.Nightly;
+import potato.stable.Stable;
 
 public class Main {
 
     public static void main(String[] args) {
-        Nightly.run();
+        Stable.run();
     }
 }

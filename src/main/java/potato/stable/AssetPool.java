@@ -1,7 +1,7 @@
-package potato.nightly;
+package potato.stable;
 
-import potato.nightly.render.Shader;
-import potato.nightly.render.Texture;
+import potato.stable.render.Shader;
+import potato.stable.render.Texture;
 
 import java.io.File;
 import java.util.HashMap;

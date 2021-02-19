@@ -1,4 +1,4 @@
-package potato.nightly.fonts;
+package potato.stable.fonts;
 
 import org.lwjgl.BufferUtils;
 

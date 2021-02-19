@@ -1,8 +1,8 @@
-package potato.nightly.fonts;
+package potato.stable.fonts;
 
 import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL15;
-import potato.nightly.render.Shader;
+import potato.stable.render.Shader;
 
 import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.opengl.GL20.glEnableVertexAttribArray;

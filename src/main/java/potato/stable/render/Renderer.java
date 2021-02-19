@@ -1,6 +1,6 @@
-package potato.nightly.render;
+package potato.stable.render;
 
-import potato.nightly.Window;
+import potato.stable.Window;
 
 import java.util.ArrayList;
 import java.util.Collections;

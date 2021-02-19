@@ -1,12 +1,12 @@
-package potato.nightly;
+package potato.stable;
 
 
 import org.joml.Vector2f;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
-import potato.nightly.listeners.KeyListener;
-import potato.nightly.listeners.MouseListener;
-import potato.nightly.render.Camera;
+import potato.stable.listeners.KeyListener;
+import potato.stable.listeners.MouseListener;
+import potato.stable.render.Camera;
 
 import java.text.MessageFormat;
 import java.util.HashMap;

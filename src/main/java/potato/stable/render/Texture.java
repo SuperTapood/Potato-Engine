@@ -1,4 +1,4 @@
-package potato.nightly.render;
+package potato.stable.render;
 
 import org.lwjgl.BufferUtils;
 

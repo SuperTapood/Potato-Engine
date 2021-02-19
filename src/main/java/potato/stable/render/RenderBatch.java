@@ -1,9 +1,11 @@
-package potato.nightly.render;
+package potato.stable.render;
 
 import org.joml.Vector2f;
 import org.joml.Vector4f;
-import potato.nightly.AssetPool;
-import potato.nightly.Window;
+import potato.stable.render.Shader;
+import potato.stable.render.Texture;
+import potato.stable.AssetPool;
+import potato.stable.Window;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +34,7 @@ public class RenderBatch implements Comparable<RenderBatch> {
 
     public RenderBatch(int maxBatchSize, int zIndex, Window window) {
         this.zIndex = zIndex;
-        shader = AssetPool.getShader("src/main/java/potato/nightly/shaders/default.glsl");
+        shader = AssetPool.getShader("src/main/java/potato/stable/shaders/default.glsl");
         this.sprites = new Potato[maxBatchSize];
         this.maxBatchSize = maxBatchSize;
 

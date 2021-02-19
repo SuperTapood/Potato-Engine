@@ -1,8 +1,8 @@
-package potato.nightly.render;
+package potato.stable.render;
 
 import org.joml.Vector2f;
 import org.joml.Vector4f;
-import potato.nightly.Transform;
+import potato.stable.Transform;
 
 public class Potato {
 
