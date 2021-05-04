@@ -1,7 +1,7 @@
 package potato.stable;
 
-import potato.stable.render.Renderer;
 import potato.stable.render.Potato;
+import potato.stable.render.Renderer;
 
 import java.util.ArrayList;
 

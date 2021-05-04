@@ -6,8 +6,8 @@ import potato.nightly.Scene;
 import potato.nightly.Transform;
 import potato.nightly.Window;
 import potato.nightly.render.Camera;
-import potato.nightly.render.Sprite;
 import potato.nightly.render.Potato;
+import potato.nightly.render.Sprite;
 
 public class MainScene extends Scene {
 

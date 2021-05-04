@@ -1,7 +1,7 @@
 package potato.nightly;
 
-import potato.nightly.render.Renderer;
 import potato.nightly.render.Potato;
+import potato.nightly.render.Renderer;
 
 import java.util.ArrayList;
 

@@ -28,9 +28,6 @@ public class Window {
     private final KeyListener keyListener;
     private final Map<String, Scene> scenes = new HashMap<>();
     private final Camera camera;
-    private long glfwWindow;
-    private Scene currentScene;
-
     private final float[] vertices = {
             // x, y,        r, g, b              ux, uy
             0.5f, 0.5f, 1.0f, 0.2f, 0.11f, 1.0f, 0.0f,
@@ -38,11 +35,12 @@ public class Window {
             -0.5f, -0.5f, 1.0f, 0.2f, 0.11f, 0.0f, 1.0f,
             -0.5f, 0.5f, 1.0f, 0.2f, 0.11f, 0.0f, 0.0f
     };
-
     private final int[] indices = {
             0, 1, 3,
             1, 2, 3
     };
+    private long glfwWindow;
+    private Scene currentScene;
 
 
     public Window(int width, int height, String title) {

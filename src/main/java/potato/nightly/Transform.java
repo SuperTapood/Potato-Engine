@@ -19,7 +19,7 @@ public class Transform {
         init(position, scale);
     }
 
-    public Transform(int x, int y, int width, int height){
+    public Transform(int x, int y, int width, int height) {
         init(new Vector2f(x, y), new Vector2f(width, height));
     }
 

@@ -6,8 +6,8 @@ import potato.stable.Scene;
 import potato.stable.Transform;
 import potato.stable.Window;
 import potato.stable.render.Camera;
-import potato.stable.render.Sprite;
 import potato.stable.render.Potato;
+import potato.stable.render.Sprite;
 
 public class MainScene extends Scene {
 
