@@ -1,4 +1,4 @@
-import potato.stable.Stable;
+import potato.Stable;
 
 public class Main {
 
