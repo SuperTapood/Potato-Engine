@@ -29,6 +29,6 @@ public class MainScene extends Scene {
     }
 
     private void loadResources() {
-        AssetPool.getShader("src/main/java/potato/stable/shaders/default.glsl");
+        AssetPool.getShader("src/main/java/potato/shaders/default.glsl");
     }
 }
