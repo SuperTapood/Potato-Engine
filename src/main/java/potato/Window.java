@@ -8,11 +8,14 @@ import potato.listeners.KeyListener;
 import potato.listeners.MouseListener;
 import potato.render.Camera;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import static java.awt.Font.PLAIN;
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
@@ -76,9 +79,10 @@ public class Window {
         glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
         // do not maximize the window.
         glfwWindowHint(GLFW_MAXIMIZED, GLFW_FALSE);
-//        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-//        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-//        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+        // assert some version stuff
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     }
 
     private void createWindow() {
@@ -125,14 +129,15 @@ public class Window {
         float endTime;
         float frameTime = 0;
         float dt;
+
         glClearColor(0.1f, 0.09f, 0.1f, 1);
 
         while (!glfwWindowShouldClose(glfwWindow)) {
             glClear(GL_COLOR_BUFFER_BIT);
-
             if (frameTime >= perFrame) {
                 frameTime = 0;
                 currentScene.update(this);
+
                 glfwSwapBuffers(glfwWindow);
             }
             glfwPollEvents();
@@ -141,9 +146,13 @@ public class Window {
             frameTime += dt;
             System.out.println(MessageFormat.format("{0}ms, {1} FPS", dt * 1000, 1 / dt));
             beginTime = endTime;
+            glClear(GL_COLOR_BUFFER_BIT);
+            glClearColor(0.1f, 0.09f, 0.1f, 1);
+
+            glfwSwapBuffers(glfwWindow);
+            glfwPollEvents();
         }
     }
-
 
     private void terminate() {
         glfwFreeCallbacks(glfwWindow);
