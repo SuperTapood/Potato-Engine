@@ -1,6 +1,8 @@
+import potato.text.Generate;
+
 public class Main {
 
     public static void main(String[] args) {
-        Test1.run();
+        new Generate("Arial.ttf");
     }
 }

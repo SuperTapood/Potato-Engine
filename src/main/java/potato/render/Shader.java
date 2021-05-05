@@ -36,7 +36,6 @@ public class Shader {
             eol = source.indexOf("\r\n", index);
             String secondPattern = source.substring(index, eol).trim();
 
-
             if (firstPattern.equals("vertex")) {
                 vertexSource = splitString[1];
             } else if (firstPattern.equals("fragment")) {
@@ -52,12 +51,10 @@ public class Shader {
             } else {
                 throw new IOException("Unexpected token '" + secondPattern + "'");
             }
-        } catch (IOException e) {
+        } catch(IOException e) {
             e.printStackTrace();
             assert false : "Error: Could not open file for shader: '" + filepath + "'";
         }
-
-        compile();
     }
 
     public void compile() {
