@@ -136,8 +136,8 @@ public class Window {
             glClear(GL_COLOR_BUFFER_BIT);
             if (frameTime >= perFrame) {
                 frameTime = 0;
+                glClear(GL_COLOR_BUFFER_BIT);
                 currentScene.update(this);
-
                 glfwSwapBuffers(glfwWindow);
             }
             glfwPollEvents();
@@ -146,8 +146,6 @@ public class Window {
             frameTime += dt;
             System.out.println(MessageFormat.format("{0}ms, {1} FPS", dt * 1000, 1 / dt));
             beginTime = endTime;
-            glClear(GL_COLOR_BUFFER_BIT);
-            glClearColor(0.1f, 0.09f, 0.1f, 1);
 
             glfwPollEvents();
         }
