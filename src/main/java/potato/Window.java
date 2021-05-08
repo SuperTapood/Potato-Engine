@@ -149,7 +149,6 @@ public class Window {
             glClear(GL_COLOR_BUFFER_BIT);
             glClearColor(0.1f, 0.09f, 0.1f, 1);
 
-            glfwSwapBuffers(glfwWindow);
             glfwPollEvents();
         }
     }
