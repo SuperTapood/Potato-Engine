@@ -9,8 +9,8 @@ import potato.fonts.Text;
 import potato.listeners.KeyListener;
 import potato.listeners.MouseListener;
 import potato.render.Camera;
-import potato.render.Shader;
 
+import java.text.MessageFormat;
 import java.util.Objects;
 import java.util.Random;
 
@@ -101,7 +101,7 @@ public class Window {
         // Enable v-sync
         // setting this to 1 will make the fps flop 55 - 65 fps
         // setting this to 0 will run this at about 5K to 7K fps
-        glfwSwapInterval(1);
+        glfwSwapInterval(0);
 
         // Make the window visible
         glfwShowWindow(glfwWindow);
@@ -126,8 +126,7 @@ public class Window {
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        // this will show about 60.1 fps
-        float fps = 60.15f;
+        float fps = 60f;
         float perFrame = 1 / fps;
         float beginTime = (float) glfwGetTime();
         float endTime;
@@ -140,21 +139,29 @@ public class Window {
         Text text = new Text("C:/Windows/Fonts/Arial.ttf", 64);
         Random random = new Random();
         while (!glfwWindowShouldClose(glfwWindow)) {
-            glClear(GL_COLOR_BUFFER_BIT);
+            if (frameTime >= perFrame) {
+                //System.out.println(MessageFormat.format("{0}ms, {1} FPS", frameTime, 1 / frameTime));
+                text.addText(MessageFormat.format("{0}ms, {1} FPS", frameTime, 1 / frameTime).toString(), 50, 50, 0.5f, 0xFF00AB0);
+                frameTime = 0;
+                glClear(GL_COLOR_BUFFER_BIT);
+                text.addText("Hello world!", 200, 200, 1f, 0xFF00AB0);
+                text.addText("My name is Gabe!", 100, 300, 1.1f, 0xAA01BB);
 
-            text.addText("Hello world!", 200, 200, 1f, 0xFF00AB0);
-            text.addText("My name is Gabe!", 100, 300, 1.1f, 0xAA01BB);
 
-            StringBuilder message = new StringBuilder();
-            for (int i = 0; i < 10; i++) {
-                message.append((char) (random.nextInt('z' - 'a') + 'a'));
+                StringBuilder message = new StringBuilder();
+                for (int i = 0; i < 10; i++) {
+                    message.append((char) (random.nextInt('z' - 'a') + 'a'));
+                }
+                text.addText(message.toString(), 200, 400, 1.1f, 0xAA01BB);
+                text.flushBatch();
+                glfwSwapBuffers(glfwWindow);
             }
-            text.addText(message.toString(), 200, 400, 1.1f, 0xAA01BB);
-
-            text.flushBatch();
-
-            glfwSwapBuffers(glfwWindow);
             glfwPollEvents();
+            endTime = (float) glfwGetTime();
+            dt = endTime - beginTime;
+            frameTime += dt;
+            System.out.println(MessageFormat.format("{0}ms, {1} FPS", dt, 1 / dt));
+            beginTime = endTime;
         }
     }
 
