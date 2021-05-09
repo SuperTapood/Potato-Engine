@@ -1,9 +1,8 @@
-package test;
+package test.Fonts;
 
 import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL15;
-import test.Fonts.CFont;
-import test.Fonts.CharInfo;
+import potato.render.Shader;
 
 import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.opengl.GL15C.GL_ELEMENT_ARRAY_BUFFER;

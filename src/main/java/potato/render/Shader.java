@@ -55,6 +55,7 @@ public class Shader {
             e.printStackTrace();
             assert false : "Error: Could not open file for shader: '" + filepath + "'";
         }
+        compile();
     }
 
     public void compile() {

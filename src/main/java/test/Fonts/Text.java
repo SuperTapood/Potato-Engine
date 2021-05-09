@@ -1,8 +1,7 @@
 package test.Fonts;
 
 import potato.GlobalData;
-import test.Batch;
-import test.Shader;
+import potato.render.Shader;
 
 public class Text extends Batch {
     private CFont font;
