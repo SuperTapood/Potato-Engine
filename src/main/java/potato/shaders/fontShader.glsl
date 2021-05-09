@@ -16,8 +16,8 @@ void main()
     gl_Position = uProjection * vec4(aPos, -5, 1);
 }
 
-    #type fragment
-    #version 330 core
+#type fragment
+#version 330 core
 
 in vec2 fTexCoords;
 in vec3 fColor;

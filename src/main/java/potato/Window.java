@@ -4,20 +4,29 @@ package potato;
 import org.joml.Vector2f;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
+import potato.fonts.CFont;
+import potato.fonts.FontBatch;
 import potato.listeners.KeyListener;
 import potato.listeners.MouseListener;
 import potato.render.Camera;
+import potato.render.Shader;
 
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Random;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.glClear;
 import static org.lwjgl.opengl.GL15.*;
+import static org.lwjgl.opengl.GL20.glEnableVertexAttribArray;
+import static org.lwjgl.opengl.GL20.glVertexAttribPointer;
+import static org.lwjgl.opengl.GL30.glBindVertexArray;
+import static org.lwjgl.opengl.GL30.glGenVertexArrays;
+import static org.lwjgl.opengl.GL31.GL_TEXTURE_BUFFER;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 
@@ -26,7 +35,7 @@ public class Window {
     private final String title;
     private final MouseListener mouseListener;
     private final KeyListener keyListener;
-    private final Map<String, Scene> scenes = new HashMap<>();
+//    private final Map<String, Scene> scenes = new HashMap<>();
     private final Camera camera;
     private final float[] vertices = {
             // x, y,        r, g, b              ux, uy
@@ -40,7 +49,10 @@ public class Window {
             1, 2, 3
     };
     private long glfwWindow;
-    private Scene currentScene;
+//    private Scene currentScene;
+
+    private CFont font;
+    private int vao;
 
 
     public Window(int width, int height, String title) {
@@ -49,9 +61,10 @@ public class Window {
         this.title = title;
         this.mouseListener = new MouseListener();
         this.keyListener = new KeyListener();
-        this.currentScene = new Scene(this);
+//        this.currentScene = new Scene(this);
         this.camera = new Camera(new Vector2f(0, 0));
         init();
+        font = new CFont("C:/Windows/Fonts/Arial.ttf", 64);
     }
 
     public void init() {
@@ -91,6 +104,8 @@ public class Window {
 
         // Make the OpenGL context current, whatever that means.
         glfwMakeContextCurrent(glfwWindow);
+        GL.createCapabilities();
+
         // Enable v-sync
         // setting this to 1 will make the fps flop 55 - 65 fps
         // setting this to 0 will run this at about 5K to 7K fps
@@ -99,7 +114,7 @@ public class Window {
         // Make the window visible
         glfwShowWindow(glfwWindow);
 
-        GL.createCapabilities();
+
     }
 
     private void setCallbacks() {
@@ -116,32 +131,60 @@ public class Window {
     }
 
     private void loop() {
+//        glEnable(GL_BLEND);
+//        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+//
+//        // this will show about 60.1 fps
+//        float fps = 60.15f;
+//        float perFrame = 1 / fps;
+//        float beginTime = (float) glfwGetTime();
+//        float endTime;
+//        float frameTime = 0;
+//        float dt;
+//
+//        glClearColor(0.1f, 0.09f, 0.1f, 1);
+//
+//        while (!glfwWindowShouldClose(glfwWindow)) {
+//            if (frameTime >= perFrame) {
+//                frameTime = 0;
+//                glClear(GL_COLOR_BUFFER_BIT);
+////                currentScene.update(this);
+//                glfwSwapBuffers(glfwWindow);
+//            }
+//            glfwPollEvents();
+//            endTime = (float) glfwGetTime();
+//            dt = endTime - beginTime;
+//            frameTime += dt;
+//            //System.out.println(MessageFormat.format("{0}ms, {1} FPS", dt * 1000, 1 / dt));
+//            beginTime = endTime;
+//        }
+        Shader fontShader = new Shader("src/main/java/potato/shaders/fontShader.glsl");
+        FontBatch batch = new FontBatch();
+        batch.shader = fontShader;
+        batch.font = font;
+        batch.initBatch();
+
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        // this will show about 60.1 fps
-        float fps = 60.15f;
-        float perFrame = 1 / fps;
-        float beginTime = (float) glfwGetTime();
-        float endTime;
-        float frameTime = 0;
-        float dt;
-
-        glClearColor(0.1f, 0.09f, 0.1f, 1);
-
+        Random random = new Random();
         while (!glfwWindowShouldClose(glfwWindow)) {
-            if (frameTime >= perFrame) {
-                frameTime = 0;
-                glClear(GL_COLOR_BUFFER_BIT);
-                currentScene.update(this);
-                glfwSwapBuffers(glfwWindow);
+            glClear(GL_COLOR_BUFFER_BIT);
+            glClearColor(1, 1, 1, 1);
+
+            batch.addText("Hello world!", 200, 200, 1f, 0xFF00AB0);
+            batch.addText("My name is Gabe!", 100, 300, 1.1f, 0xAA01BB);
+
+            StringBuilder message = new StringBuilder();
+            for (int i=0; i < 10; i++) {
+                message.append((char) (random.nextInt('z' - 'a') + 'a'));
             }
+            batch.addText(message.toString(), 200, 400, 1.1f, 0xAA01BB);
+
+            batch.flushBatch();
+
+            glfwSwapBuffers(glfwWindow);
             glfwPollEvents();
-            endTime = (float) glfwGetTime();
-            dt = endTime - beginTime;
-            frameTime += dt;
-            //System.out.println(MessageFormat.format("{0}ms, {1} FPS", dt * 1000, 1 / dt));
-            beginTime = endTime;
         }
     }
 
@@ -153,23 +196,23 @@ public class Window {
         Objects.requireNonNull(glfwSetErrorCallback(null)).free();
     }
 
-    public void addScene(String name, Scene scene) {
-        scenes.put(name, scene);
-    }
-
-    public Scene getScene(String name) {
-        return scenes.get(name);
-    }
-
-    public void setCurrentScene(Scene scene) {
-        currentScene = scene;
-        currentScene.start(this);
-    }
-
-    public void setCurrentScene(String name) {
-        Scene scene = getScene(name);
-        setCurrentScene(scene);
-    }
+//    public void addScene(String name, Scene scene) {
+//        scenes.put(name, scene);
+//    }
+//
+//    public Scene getScene(String name) {
+//        return scenes.get(name);
+//    }
+//
+//    public void setCurrentScene(Scene scene) {
+//        currentScene = scene;
+//        currentScene.start(this);
+//    }
+//
+//    public void setCurrentScene(String name) {
+//        Scene scene = getScene(name);
+//        setCurrentScene(scene);
+//    }
 
     public Camera getCamera() {
         return this.camera;

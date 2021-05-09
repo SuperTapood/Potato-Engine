@@ -93,6 +93,7 @@ public class RenderBatch implements Comparable<RenderBatch> {
         this.sprites[index] = spr;
         this.numSprites++;
 
+        System.out.println(spr.getTexture());
         if (spr.getTexture() != null) {
             if (!textures.contains(spr.getTexture())) {
                 textures.add(spr.getTexture());
@@ -118,7 +119,6 @@ public class RenderBatch implements Comparable<RenderBatch> {
             }
         }
         if (rebufferData) {
-            System.out.println("rebuffer");
             glBindBuffer(GL_ARRAY_BUFFER, vboID);
             glBufferSubData(GL_ARRAY_BUFFER, 0, vertices);
         }

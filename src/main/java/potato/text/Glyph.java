@@ -2,7 +2,6 @@ package potato.text;
 
 import potato.AssetPool;
 import potato.Transform;
-import potato.render.Image;
 import potato.render.Potato;
 import potato.render.Sprite;
 import potato.render.Texture;
