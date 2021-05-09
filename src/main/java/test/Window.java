@@ -1,10 +1,8 @@
 package test;
 
-import test.Fonts.CFont;
-import org.joml.Vector2f;
 import org.lwjgl.opengl.GL;
-import test.Batch;
-import test.Shader;
+import potato.GlobalData;
+import test.Fonts.CFont;
 
 import java.util.Random;
 
@@ -13,11 +11,6 @@ import static org.lwjgl.opengl.GL11.glClearColor;
 import static org.lwjgl.opengl.GL11C.GL_COLOR_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11C.glClear;
 import static org.lwjgl.opengl.GL15.*;
-import static org.lwjgl.opengl.GL20.glEnableVertexAttribArray;
-import static org.lwjgl.opengl.GL20.glVertexAttribPointer;
-import static org.lwjgl.opengl.GL30.glBindVertexArray;
-import static org.lwjgl.opengl.GL30.glGenVertexArrays;
-import static org.lwjgl.opengl.GL31.GL_TEXTURE_BUFFER;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 public class Window {
@@ -52,7 +45,7 @@ public class Window {
     }
 
     public void run() {
-        Shader fontShader = new Shader("src/main/java/potato/shaders/fontShader.glsl");
+        Shader fontShader = new Shader(GlobalData.FONT_SHADER);
         Batch batch = new Batch();
         batch.shader = fontShader;
         batch.font = font;
@@ -70,8 +63,8 @@ public class Window {
             batch.addText("My name is Gabe!", 100, 300, 1.1f, 0xAA01BB);
 
             String message = "";
-            for (int i=0; i < 10; i++) {
-                message += (char)(random.nextInt('z' - 'a') + 'a');
+            for (int i = 0; i < 10; i++) {
+                message += (char) (random.nextInt('z' - 'a') + 'a');
             }
             batch.addText(message, 200, 400, 1.1f, 0xAA01BB);
 

@@ -2,13 +2,12 @@ package potato.text;
 
 import potato.Transform;
 import potato.render.Potato;
-import potato.render.Texture;
 
 public class Text extends Potato {
     Glyph[] text;
 
     public Text(int x, int y, int size, String text) {
-        super(new Transform(0, 0, 0, 0),0);
+        super(new Transform(0, 0, 0, 0), 0);
         this.text = new Glyph[text.length()];
         int lastX = x;
         for (int i = 0; i < text.length(); i++) {

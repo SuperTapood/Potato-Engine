@@ -3,7 +3,6 @@ package test;
 import org.joml.*;
 import org.lwjgl.BufferUtils;
 
-import javax.print.DocFlavor;
 import java.io.IOException;
 import java.nio.FloatBuffer;
 import java.nio.file.Files;
@@ -11,7 +10,6 @@ import java.nio.file.Paths;
 
 import static org.lwjgl.opengl.GL11.GL_FALSE;
 import static org.lwjgl.opengl.GL20.*;
-import static org.lwjgl.opengl.GL20.glGetShaderInfoLog;
 
 public class Shader {
 
@@ -53,7 +51,7 @@ public class Shader {
             } else {
                 throw new IOException("Unexpected token '" + secondPattern + "'");
             }
-        } catch(IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             assert false : "Error: Could not open file for shader: '" + filepath + "'";
         }

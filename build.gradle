@@ -36,7 +36,7 @@ dependencies {
 //    // ImGUI stuff
 //    implementation "io.github.spair:imgui-java-app:$imguiVersion"
 
-     // LWJGL stuff
+    // LWJGL stuff
     implementation platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
 
     implementation "org.lwjgl:lwjgl"

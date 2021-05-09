@@ -7,9 +7,9 @@ import potato.render.Sprite;
 import potato.render.Texture;
 
 public class Glyph {
-    private int width, height;
     private final Potato potato;
     public boolean isDirty = true;
+    private int width, height;
 
     public Glyph(int x, int y, int size, char c) {
         String path = "src/main/java/potato/text/" + charToName(c) + ".png";
@@ -22,23 +22,23 @@ public class Glyph {
         potato.setSprite(sprite);
     }
 
+    public static String charToName(char c) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(Character.toLowerCase(c));
+        if ((int) c > 64 && (int) c < 91) {
+            sb.append("_upper");
+        } else if ((int) c > 96 && (int) c < 123) {
+            sb.append("_lower");
+        }
+        return sb.toString();
+    }
+
     public int getWidth() {
         return width;
     }
 
     public int getHeight() {
         return height;
-    }
-
-    public static String charToName(char c) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(Character.toLowerCase(c));
-        if ((int)c > 64 && (int)c < 91) {
-            sb.append("_upper");
-        } else if ((int)c > 96 && (int)c < 123) {
-            sb.append("_lower");
-        }
-        return sb.toString();
     }
 
     public void update(float dt) {
