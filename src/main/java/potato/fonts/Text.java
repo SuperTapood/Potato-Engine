@@ -1,4 +1,4 @@
-package test.Fonts;
+package potato.fonts;
 
 import potato.GlobalData;
 import potato.render.Shader;

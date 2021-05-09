@@ -1,9 +1,8 @@
 package test;
 
 import org.lwjgl.opengl.GL;
-import test.Fonts.Text;
+import potato.fonts.Text;
 
-import java.awt.*;
 import java.util.Random;
 
 import static org.lwjgl.glfw.GLFW.*;

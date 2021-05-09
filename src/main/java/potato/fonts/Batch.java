@@ -1,4 +1,4 @@
-package test.Fonts;
+package potato.fonts;
 
 import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL15;
@@ -30,7 +30,7 @@ public class Batch {
     public int vao;
     public int vbo;
     public Shader shader;
-    public CFont font;
+    public potato.fonts.CFont font;
     private int[] indices = {
             0, 1, 3,
             1, 2, 3
@@ -95,7 +95,7 @@ public class Batch {
         size = 0;
     }
 
-    public void addCharacter(float x, float y, float scale, CharInfo charInfo, int rgb) {
+    public void addCharacter(float x, float y, float scale, potato.fonts.CharInfo charInfo, int rgb) {
         // If we have no more room in the current batch, flush it and start with a fresh batch
         if (size >= BATCH_SIZE - 4) {
             flushBatch();
@@ -158,7 +158,7 @@ public class Batch {
         for (int i = 0; i < text.length(); i++) {
             char c = text.charAt(i);
 
-            CharInfo charInfo = font.getCharacter(c);
+            potato.fonts.CharInfo charInfo = font.getCharacter(c);
             if (charInfo.width == 0) {
                 System.out.println("Unknown character " + c);
                 continue;

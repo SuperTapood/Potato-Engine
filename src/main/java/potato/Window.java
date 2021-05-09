@@ -5,7 +5,6 @@ import org.joml.Vector2f;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
 import potato.fonts.CFont;
-import potato.fonts.FontBatch;
 import potato.listeners.KeyListener;
 import potato.listeners.MouseListener;
 import potato.render.Camera;
@@ -150,34 +149,6 @@ public class Window {
 //            //System.out.println(MessageFormat.format("{0}ms, {1} FPS", dt * 1000, 1 / dt));
 //            beginTime = endTime;
 //        }
-        Shader fontShader = new Shader("src/main/java/potato/shaders/fontShader.glsl");
-        FontBatch batch = new FontBatch();
-        batch.shader = fontShader;
-        batch.font = font;
-        batch.initBatch();
-
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-        Random random = new Random();
-        while (!glfwWindowShouldClose(glfwWindow)) {
-            glClear(GL_COLOR_BUFFER_BIT);
-            glClearColor(1, 1, 1, 1);
-
-            batch.addText("Hello world!", 200, 200, 1f, 0xFF00AB0);
-            batch.addText("My name is Gabe!", 100, 300, 1.1f, 0xAA01BB);
-
-            StringBuilder message = new StringBuilder();
-            for (int i = 0; i < 10; i++) {
-                message.append((char) (random.nextInt('z' - 'a') + 'a'));
-            }
-            batch.addText(message.toString(), 200, 400, 1.1f, 0xAA01BB);
-
-            batch.flushBatch();
-
-            glfwSwapBuffers(glfwWindow);
-            glfwPollEvents();
-        }
     }
 
     private void terminate() {
