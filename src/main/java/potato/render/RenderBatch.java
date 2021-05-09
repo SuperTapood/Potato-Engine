@@ -118,6 +118,7 @@ public class RenderBatch implements Comparable<RenderBatch> {
             }
         }
         if (rebufferData) {
+            System.out.println("rebuffer");
             glBindBuffer(GL_ARRAY_BUFFER, vboID);
             glBufferSubData(GL_ARRAY_BUFFER, 0, vertices);
         }
@@ -127,6 +128,7 @@ public class RenderBatch implements Comparable<RenderBatch> {
         shader.uploadMat4f("uProjection", window.getCamera().getProjectionMatrix());
         shader.uploadMat4f("uView", window.getCamera().getViewMatrix());
         for (int i = 0; i < textures.size(); i++) {
+            System.out.println(textures.get(i));
             glActiveTexture(GL_TEXTURE0 + i + 1);
             textures.get(i).bind();
         }

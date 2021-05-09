@@ -1,21 +1,26 @@
 package potato.text;
 
 import potato.AssetPool;
+import potato.Transform;
 import potato.render.Image;
 import potato.render.Potato;
+import potato.render.Sprite;
 import potato.render.Texture;
 
 public class Glyph {
-    private Image img;
     private int width, height;
+    private final Potato potato;
+    public boolean isDirty = true;
 
     public Glyph(int x, int y, int size, char c) {
         String path = "src/main/java/potato/text/" + charToName(c) + ".png";
-        System.out.println(path);
         Texture text = AssetPool.getTexture(path);
         width = text.getWidth();
         height = text.getHeight();
-        img = new Image(x, y, width, size, path);
+        potato = new Potato(new Transform(x, y, width, size), 0);
+        Sprite sprite = new Sprite();
+        sprite.setTexture(text);
+        potato.setSprite(sprite);
     }
 
     public int getWidth() {
@@ -38,6 +43,9 @@ public class Glyph {
     }
 
     public void update(float dt) {
-        img.update(dt);
+        if (!potato.lastTransform.equals(potato.transform)) {
+            potato.transform.copy(potato.lastTransform);
+            isDirty = true;
+        }
     }
 }

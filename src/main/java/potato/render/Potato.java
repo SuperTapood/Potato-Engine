@@ -6,12 +6,13 @@ import potato.Transform;
 
 public class Potato {
 
-    private final Vector4f color = new Vector4f(1, 1, 1, 1);
+    public final Vector4f color = new Vector4f(1, 1, 1, 1);
     public Transform transform;
     public int zIndex;
-    private Sprite sprite = new Sprite();
-    private transient Transform lastTransform;
-    private transient boolean isDirty = true;
+    public Sprite sprite = new Sprite();
+    public transient Transform lastTransform;
+    public transient boolean isDirty = true;
+    public boolean blank = false;
 
     public Potato(Transform transform, int zIndex) {
         this.transform = transform;
@@ -23,6 +24,10 @@ public class Potato {
     }
 
     public void update(float dt) {
+        if (blank) {
+            System.err.println("BLANK");
+            System.exit(1);
+        }
         if (!this.lastTransform.equals(this.transform)) {
             this.transform.copy(this.lastTransform);
             isDirty = true;
@@ -59,5 +64,9 @@ public class Potato {
 
     public void setClean() {
         this.isDirty = false;
+    }
+
+    public void setBlank() {
+        blank = true;
     }
 }

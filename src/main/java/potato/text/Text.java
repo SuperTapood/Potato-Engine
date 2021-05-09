@@ -16,11 +16,14 @@ public class Text extends Potato {
             lastX += ch.getWidth();
             this.text[i] = ch;
         }
+        super.setBlank();
     }
 
+    @Override
     public void update(float dt) {
-        for (Glyph g : text) {
-            g.update(dt);
-        }
+        System.out.println("update");
+        isDirty = true;
     }
+
+
 }
