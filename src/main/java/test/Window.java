@@ -1,9 +1,9 @@
 package test;
 
 import org.lwjgl.opengl.GL;
-import potato.GlobalData;
-import test.Fonts.CFont;
+import test.Fonts.Text;
 
+import java.awt.*;
 import java.util.Random;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -16,11 +16,9 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 public class Window {
 
     private long window;
-    private CFont font;
 
     public Window() {
         init();
-        font = new CFont("C:/Windows/Fonts/Arial.ttf", 64);
     }
 
     private void init() {
@@ -45,30 +43,26 @@ public class Window {
     }
 
     public void run() {
-        Shader fontShader = new Shader(GlobalData.FONT_SHADER);
-        Batch batch = new Batch();
-        batch.shader = fontShader;
-        batch.font = font;
-        batch.initBatch();
-
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+        Text text = new Text("C:/Windows/Fonts/Arial.ttf", 64);
 
         Random random = new Random();
         while (!glfwWindowShouldClose(window)) {
             glClear(GL_COLOR_BUFFER_BIT);
             glClearColor(1, 1, 1, 1);
 
-            batch.addText("Hello world!", 200, 200, 1f, 0xFF00AB0);
-            batch.addText("My name is Gabe!", 100, 300, 1.1f, 0xAA01BB);
+            text.addText("Hello world!", 200, 200, 1f, 0xFF00AB0);
+            text.addText("My name is Gabe!", 100, 300, 1.1f, 0xAA01BB);
 
-            String message = "";
+            StringBuilder message = new StringBuilder();
             for (int i = 0; i < 10; i++) {
-                message += (char) (random.nextInt('z' - 'a') + 'a');
+                message.append((char) (random.nextInt('z' - 'a') + 'a'));
             }
-            batch.addText(message, 200, 400, 1.1f, 0xAA01BB);
+            text.addText(message.toString(), 200, 400, 1.1f, 0xAA01BB);
 
-            batch.flushBatch();
+            text.flushBatch();
 
             glfwSwapBuffers(window);
             glfwPollEvents();

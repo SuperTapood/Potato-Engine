@@ -4,7 +4,7 @@ A basic LWJGL based framework to handle some low level LWJGL functions.
 
 to do:
 
-- add text class
+- add font class
 - add an image class
 - add a button class
 - add an image button class
