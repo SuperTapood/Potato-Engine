@@ -4,12 +4,9 @@ A basic LWJGL based framework to handle some low level LWJGL functions.
 
 to do:
 
-- add font class
-- add an image class
-- add a button class
-- add an image button class
-- find a smart way to export the project and make that the stable release
-- shape moving test
-- notebook test
-- image moving test
-- ?
+- add a better way to represent color in the text thing
+- change scale to size
+- add StaticText (for static text that doesn't change)
+- add DynamicText (for dynamically changing the text)
+- add Button class (with on hover, on click events)
+- add Scene master class and have it properly integrate with the button's hierarchy
