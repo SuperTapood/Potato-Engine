@@ -72,7 +72,7 @@ public class Scene {
     }
 
     public void print() {
-        System.out.println(this.toString());
+        System.out.println(this);
     }
 
     public void update(Window window) {

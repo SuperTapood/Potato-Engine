@@ -140,7 +140,7 @@ public class Window {
             endTime = (float) glfwGetTime();
             dt = endTime - beginTime;
             frameTime += dt;
-            System.out.println(MessageFormat.format("{0}ms, {1} FPS", dt * 1000, 1 / dt));
+            //System.out.println(MessageFormat.format("{0}ms, {1} FPS", dt * 1000, 1 / dt));
             beginTime = endTime;
         }
     }
