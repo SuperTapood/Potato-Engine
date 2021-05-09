@@ -135,12 +135,12 @@ public class Window {
         float dt;
 
         //glClearColor(0.1f, 0.09f, 0.1f, 1);
+        glClearColor(1, 1, 1, 1);
 
         Text text = new Text("C:/Windows/Fonts/Arial.ttf", 64);
         Random random = new Random();
         while (!glfwWindowShouldClose(glfwWindow)) {
             glClear(GL_COLOR_BUFFER_BIT);
-            glClearColor(1, 1, 1, 1);
 
             text.addText("Hello world!", 200, 200, 1f, 0xFF00AB0);
             text.addText("My name is Gabe!", 100, 300, 1.1f, 0xAA01BB);
