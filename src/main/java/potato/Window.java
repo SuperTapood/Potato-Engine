@@ -8,14 +8,11 @@ import potato.listeners.KeyListener;
 import potato.listeners.MouseListener;
 import potato.render.Camera;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import static java.awt.Font.PLAIN;
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;

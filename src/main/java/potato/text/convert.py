@@ -1,6 +1,5 @@
-import sys
-
 import fontforge
+import sys
 from os import listdir, remove
 
 

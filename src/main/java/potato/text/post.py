@@ -1,6 +1,6 @@
-from os import listdir
-from PIL import Image
 import numpy as np
+from PIL import Image
+from os import listdir
 
 for item in listdir("/".join(__file__.split("/")[:-1])):
     if item.split(".")[1] == "png":
