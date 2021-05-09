@@ -1,15 +1,11 @@
 //import potato.Window;
 //import potato.scenes.MainScene;
 
-import test.Window;
+import potato.Window;
 
 public class Main {
 
     public static void main(String[] args) {
-//        Window win = new Window(500, 500, "Title");
-////        var scene = new MainScene(win);
-////        win.setCurrentScene(scene);
-//        win.run();
-        new Window().run();
+        new Window(500, 500, "Title").run();
     }
 }

@@ -5,6 +5,7 @@ import org.joml.Vector2f;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
 import potato.fonts.CFont;
+import potato.fonts.Text;
 import potato.listeners.KeyListener;
 import potato.listeners.MouseListener;
 import potato.render.Camera;
@@ -122,33 +123,39 @@ public class Window {
     }
 
     private void loop() {
-//        glEnable(GL_BLEND);
-//        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-//
-//        // this will show about 60.1 fps
-//        float fps = 60.15f;
-//        float perFrame = 1 / fps;
-//        float beginTime = (float) glfwGetTime();
-//        float endTime;
-//        float frameTime = 0;
-//        float dt;
-//
-//        glClearColor(0.1f, 0.09f, 0.1f, 1);
-//
-//        while (!glfwWindowShouldClose(glfwWindow)) {
-//            if (frameTime >= perFrame) {
-//                frameTime = 0;
-//                glClear(GL_COLOR_BUFFER_BIT);
-////                currentScene.update(this);
-//                glfwSwapBuffers(glfwWindow);
-//            }
-//            glfwPollEvents();
-//            endTime = (float) glfwGetTime();
-//            dt = endTime - beginTime;
-//            frameTime += dt;
-//            //System.out.println(MessageFormat.format("{0}ms, {1} FPS", dt * 1000, 1 / dt));
-//            beginTime = endTime;
-//        }
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+        // this will show about 60.1 fps
+        float fps = 60.15f;
+        float perFrame = 1 / fps;
+        float beginTime = (float) glfwGetTime();
+        float endTime;
+        float frameTime = 0;
+        float dt;
+
+        //glClearColor(0.1f, 0.09f, 0.1f, 1);
+
+        Text text = new Text("C:/Windows/Fonts/Arial.ttf", 64);
+        Random random = new Random();
+        while (!glfwWindowShouldClose(glfwWindow)) {
+            glClear(GL_COLOR_BUFFER_BIT);
+            glClearColor(1, 1, 1, 1);
+
+            text.addText("Hello world!", 200, 200, 1f, 0xFF00AB0);
+            text.addText("My name is Gabe!", 100, 300, 1.1f, 0xAA01BB);
+
+            StringBuilder message = new StringBuilder();
+            for (int i = 0; i < 10; i++) {
+                message.append((char) (random.nextInt('z' - 'a') + 'a'));
+            }
+            text.addText(message.toString(), 200, 400, 1.1f, 0xAA01BB);
+
+            text.flushBatch();
+
+            glfwSwapBuffers(glfwWindow);
+            glfwPollEvents();
+        }
     }
 
     private void terminate() {
