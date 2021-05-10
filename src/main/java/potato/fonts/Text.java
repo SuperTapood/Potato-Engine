@@ -18,6 +18,9 @@ public class Text extends Batch {
 
     public Text(String fontPath, int size) {
         super();
+        if (fontPath.indexOf('/') == -1) {
+            fontPath = "C:/Windows/Fonts/" + fontPath + ".ttf";
+        }
         font = generateFont(fontPath, size);
         fontShader = new Shader(GlobalData.FONT_SHADER);
         super.shader = fontShader;

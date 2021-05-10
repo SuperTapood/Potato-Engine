@@ -49,7 +49,8 @@ public class Window {
         this.mouseListener = new MouseListener();
         this.keyListener = new KeyListener();
         this.camera = new Camera(new Vector2f(0, 0));
-        // store a pointer to this window in the GlobalData class to enable neat access to it
+        // store a pointer to this window in the GlobalData class
+        // to enable neat access to it
         GlobalData.windowPtr = this;
         init();
     }
@@ -131,7 +132,7 @@ public class Window {
         //glClearColor(0.1f, 0.09f, 0.1f, 1);
         glClearColor(1, 1, 1, 1);
 
-        Text text = new Text("C:/Windows/Fonts/Arial.ttf", 64);
+        Text text = new Text("Arial", 64);
         Random random = new Random();
         while (!glfwWindowShouldClose(glfwWindow)) {
             if (frameTime >= perFrame) {
