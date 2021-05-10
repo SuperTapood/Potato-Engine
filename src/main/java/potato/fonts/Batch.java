@@ -14,14 +14,6 @@ import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 import static org.lwjgl.opengl.GL31.GL_TEXTURE_BUFFER;
 
 public class Batch {
-//    private float[] vertices = {
-//            // x, y,        r, g, b              ux, uy
-//            0.5f, 0.5f,     1.0f, 0.2f, 0.11f,    1.0f, 0.0f,
-//            0.5f, -0.5f,    1.0f, 0.2f, 0.11f,    1.0f, 1.0f,
-//            -0.5f, -0.5f,   1.0f, 0.2f, 0.11f,    0.0f, 1.0f,
-//            -0.5f, 0.5f,    1.0f, 0.2f, 0.11f,    0.0f, 0.0f
-//    };
-
     // 25 quads
     public static int BATCH_SIZE = 100;
     public static int VERTEX_SIZE = 7;

@@ -14,6 +14,7 @@ import potato.render.Camera;
 import java.text.MessageFormat;
 import java.util.Objects;
 import java.util.Random;
+import java.util.function.Consumer;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
@@ -42,6 +43,7 @@ public class Window {
             1, 2, 3
     };
     private long glfwWindow;
+    public boolean stop = false;
 
     public Window(int width, int height, String title) {
         this.width = width;
@@ -55,6 +57,9 @@ public class Window {
         GlobalData.windowPtr = this;
         // set an engine default font
         GlobalData.defaultFont = "Arial";
+        // set pointers for listeners
+        GlobalData.keyListener = keyListener;
+        GlobalData.mouseListener = mouseListener;
         init();
     }
 
@@ -120,6 +125,10 @@ public class Window {
         terminate();
     }
 
+    public void stop() {
+        stop = true;
+    }
+
     private void loop() {
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -139,9 +148,11 @@ public class Window {
         test.setLabel("Test", 200, 200, 64, 60, 60, 60);
         DynamicText test2 = new DynamicText(64);
         test2.setLabel(50, 50, 64, 0xFF00AB0);
+        Consumer<Void> func = (a) -> stop();
+        Button button = new Button(50, 50, 50, 50, func);
 
         Random random = new Random();
-        while (!glfwWindowShouldClose(glfwWindow)) {
+        while (!glfwWindowShouldClose(glfwWindow) && !stop) {
             if (frameTime >= perFrame) {
                 //System.out.println(MessageFormat.format("{0}ms, {1} FPS", frameTime, 1 / frameTime));
                 test2.setText(MessageFormat.format("{0}ms, {1} FPS", frameTime, 1 / frameTime));
@@ -165,6 +176,8 @@ public class Window {
                 glfwSwapBuffers(glfwWindow);
             }
             glfwPollEvents();
+
+            button.update();
             if (GlobalData.FPS != fps) {
                 fps = GlobalData.FPS;
                 perFrame = 1 / fps;

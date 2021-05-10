@@ -1,5 +1,8 @@
 package potato;
 
+import potato.listeners.KeyListener;
+import potato.listeners.MouseListener;
+
 public class GlobalData {
     // default engine values
     public final static String SHADER_DIR = "src/main/java/potato/shaders/";
@@ -9,4 +12,6 @@ public class GlobalData {
     public static Window windowPtr = null;
     public static String defaultFont;
     public static float FPS = 60f;
+    public static MouseListener mouseListener;
+    public static KeyListener keyListener;
 }
