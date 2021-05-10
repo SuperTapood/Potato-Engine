@@ -1,7 +1,6 @@
 package potato;
 
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 public class Button {
     private int x, y, w, h;

@@ -2,7 +2,7 @@ package potato.fonts;
 
 import potato.GlobalData;
 
-public class DynamicText extends StaticText{
+public class DynamicText extends StaticText {
 
     public DynamicText(String fontPath, int fontSize) {
         super(fontPath, fontSize);

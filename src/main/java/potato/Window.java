@@ -42,8 +42,8 @@ public class Window {
             0, 1, 3,
             1, 2, 3
     };
-    private long glfwWindow;
     public boolean stop = false;
+    private long glfwWindow;
 
     public Window(int width, int height, String title) {
         this.width = width;
