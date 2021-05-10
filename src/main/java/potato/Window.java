@@ -124,7 +124,7 @@ public class Window {
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        float fps = 60f;
+        float fps = GlobalData.FPS;
         float perFrame = 1 / fps;
         float beginTime = (float) glfwGetTime();
         float endTime;
@@ -157,6 +157,10 @@ public class Window {
                 glfwSwapBuffers(glfwWindow);
             }
             glfwPollEvents();
+            if (GlobalData.FPS != fps) {
+                fps = GlobalData.FPS;
+                perFrame = 1 / fps;
+            }
             endTime = (float) glfwGetTime();
             dt = endTime - beginTime;
             frameTime += dt;
