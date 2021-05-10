@@ -29,6 +29,20 @@ public class Text extends Batch {
         super.fontSize = size;
     }
 
+    public Text(int size) {
+        super();
+        String fontPath = GlobalData.defaultFont;
+        if (fontPath.indexOf('/') == -1) {
+            fontPath = "C:/Windows/Fonts/" + fontPath + ".ttf";
+        }
+        font = generateFont(fontPath, size);
+        fontShader = new Shader(GlobalData.FONT_SHADER);
+        super.shader = fontShader;
+        super.font = font;
+        super.initBatch();
+        super.fontSize = size;
+    }
+
     private CFont generateFont(String font, int size) {
         // todo: enable choosing font using just the name (without directory)
         return new CFont(font, size);

@@ -52,6 +52,8 @@ public class Window {
         // store a pointer to this window in the GlobalData class
         // to enable neat access to it
         GlobalData.windowPtr = this;
+        // set an engine default font
+        GlobalData.defaultFont = "Arial";
         init();
     }
 
@@ -132,7 +134,7 @@ public class Window {
         //glClearColor(0.1f, 0.09f, 0.1f, 1);
         glClearColor(1, 1, 1, 1);
 
-        Text text = new Text("Arial", 64);
+        Text text = new Text(64);
         Random random = new Random();
         while (!glfwWindowShouldClose(glfwWindow)) {
             if (frameTime >= perFrame) {
