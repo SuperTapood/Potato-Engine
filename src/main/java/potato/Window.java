@@ -141,19 +141,20 @@ public class Window {
         while (!glfwWindowShouldClose(glfwWindow)) {
             if (frameTime >= perFrame) {
                 //System.out.println(MessageFormat.format("{0}ms, {1} FPS", frameTime, 1 / frameTime));
-                text.addText(MessageFormat.format("{0}ms, {1} FPS", frameTime, 1 / frameTime).toString(), 50, 50, 0.5f, 0xFF00AB0);
+                text.addText(MessageFormat.format("{0}ms, {1} FPS", frameTime, 1 / frameTime),
+                        50, 50, 64, 0xFF00AB0);
                 frameTime = 0;
                 glClear(GL_COLOR_BUFFER_BIT);
-                text.addText("Hello world!", 200, 200, 1f, 0xFF00AB0);
-                text.addText("My name is SuperTapood!", 100, 300, 1.1f, 0xAA01BB);
-                text.addText("Test text", 300, 400, 1f, 170, 1, 187);
-                text.addText("Test text[]", 300, 400, 1f, new int[]{170, 1, 187});
+                text.addText("Hello world!", 200, 200, 64, 0xFF00AB0);
+                text.addText("My name is SuperTapood!", 100, 300, 70, 0xAA01BB);
+                text.addText("Test text", 300, 400, 64, 170, 1, 187);
+                text.addText("Test text[]", 300, 400, 64, new int[]{170, 1, 187});
 
                 StringBuilder message = new StringBuilder();
                 for (int i = 0; i < 10; i++) {
                     message.append((char) (random.nextInt('z' - 'a') + 'a'));
                 }
-                text.addText(message.toString(), 200, 400, 1.1f, 0xAA01BB);
+                text.addText(message.toString(), 200, 400, 64, 0xAA01BB);
                 text.flushBatch();
                 glfwSwapBuffers(glfwWindow);
             }

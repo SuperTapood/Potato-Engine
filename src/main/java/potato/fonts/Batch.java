@@ -36,6 +36,7 @@ public class Batch {
             1, 2, 3
     };
     private Matrix4f projection = new Matrix4f();
+    public int fontSize;
 
     public void generateEbo() {
         int elementSize = BATCH_SIZE * 3;
@@ -96,6 +97,9 @@ public class Batch {
     }
 
     public void addCharacter(float x, float y, float scale, potato.fonts.CharInfo charInfo, int rgb) {
+        if (fontSize > 0) {
+            scale = scale / fontSize;
+        }
         // If we have no more room in the current batch, flush it and start with a fresh batch
         if (size >= BATCH_SIZE - 4) {
             flushBatch();
