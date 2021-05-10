@@ -9,5 +9,5 @@ public class GlobalData {
     public static Window windowPtr = null;
     public static String defaultFont;
     // default fps is 60
-    public static int FPS = 60;
+    public static float FPS = 1f;
 }
