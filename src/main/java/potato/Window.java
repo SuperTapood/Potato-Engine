@@ -4,6 +4,7 @@ package potato;
 import org.joml.Vector2f;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
+import potato.fonts.DynamicText;
 import potato.fonts.StaticText;
 import potato.fonts.Text;
 import potato.listeners.KeyListener;
@@ -136,13 +137,14 @@ public class Window {
         Text text = new Text(64);
         StaticText test = new StaticText(64);
         test.setLabel("Test", 200, 200, 64, 60, 60, 60);
+        DynamicText test2 = new DynamicText(64);
+        test2.setLabel(50, 50, 64, 0xFF00AB0);
 
         Random random = new Random();
         while (!glfwWindowShouldClose(glfwWindow)) {
             if (frameTime >= perFrame) {
                 //System.out.println(MessageFormat.format("{0}ms, {1} FPS", frameTime, 1 / frameTime));
-                text.addText(MessageFormat.format("{0}ms, {1} FPS", frameTime, 1 / frameTime),
-                        50, 50, 64, 0xFF00AB0);
+                test2.setText(MessageFormat.format("{0}ms, {1} FPS", frameTime, 1 / frameTime));
                 frameTime = 0;
                 glClear(GL_COLOR_BUFFER_BIT);
 
@@ -156,7 +158,9 @@ public class Window {
                 }
                 text.addText(message.toString(), 200, 400, 64, 0xAA01BB);
                 test.render();
+                test2.render();
                 text.flushBatch();
+
 
                 glfwSwapBuffers(glfwWindow);
             }

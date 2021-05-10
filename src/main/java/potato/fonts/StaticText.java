@@ -3,11 +3,11 @@ package potato.fonts;
 import potato.GlobalData;
 
 public class StaticText {
-    int x, y;
-    float size;
-    int rgb;
-    private Text txt;
-    private String text;
+    public int x, y;
+    public float size;
+    public int rgb;
+    public Text txt;
+    public String text;
 
     public StaticText(String fontPath, int fontSize) {
         txt = new Text(fontPath, fontSize);
