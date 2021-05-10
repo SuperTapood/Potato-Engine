@@ -31,12 +31,12 @@ public class Batch {
     public int vbo;
     public Shader shader;
     public potato.fonts.CFont font;
+    public int fontSize;
     private int[] indices = {
             0, 1, 3,
             1, 2, 3
     };
     private Matrix4f projection = new Matrix4f();
-    public int fontSize;
 
     public void generateEbo() {
         int elementSize = BATCH_SIZE * 3;

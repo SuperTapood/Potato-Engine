@@ -8,11 +8,12 @@ public class Text extends Batch {
     private Shader fontShader;
 
     // --- [Text] ---
+
     /**
      * Create a new instance of a text manager
      *
      * @param fontPath the path for the selected font
-     * @param size the size of the font
+     * @param size     the size of the font
      */
 
     public Text(String fontPath, int size) {
