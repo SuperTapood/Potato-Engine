@@ -14,13 +14,11 @@ repositories {
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
 project.ext.lwjglVersion = "3.2.3"
 project.ext.jomlVersion = "1.9.23"
 project.ext.lwjglNatives = "natives-windows"
-project.ext.imguiVersion = '1.81.0'
 
 dependencies {
     // LWJGL stuff
