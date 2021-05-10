@@ -145,8 +145,9 @@ public class Window {
                 frameTime = 0;
                 glClear(GL_COLOR_BUFFER_BIT);
                 text.addText("Hello world!", 200, 200, 1f, 0xFF00AB0);
-                text.addText("My name is Gabe!", 100, 300, 1.1f, 0xAA01BB);
-
+                text.addText("My name is SuperTapood!", 100, 300, 1.1f, 0xAA01BB);
+                text.addText("Test text", 300, 400, 1f, 170, 1, 187);
+                text.addText("Test text[]", 300, 400, 1f, new int[]{170, 1, 187});
 
                 StringBuilder message = new StringBuilder();
                 for (int i = 0; i < 10; i++) {
@@ -160,7 +161,7 @@ public class Window {
             endTime = (float) glfwGetTime();
             dt = endTime - beginTime;
             frameTime += dt;
-            System.out.println(MessageFormat.format("{0}ms, {1} FPS", dt, 1 / dt));
+            //System.out.println(MessageFormat.format("{0}ms, {1} FPS", dt, 1 / dt));
             beginTime = endTime;
         }
     }

@@ -170,4 +170,13 @@ public class Batch {
             x += charInfo.width * scale;
         }
     }
+
+    public void addText(String text, int x, int y, float scale, int red, int green, int blue) {
+        String hex = String.format("%02x%02x%02x", red, green, blue);
+        addText(text, x, y, scale, Integer.parseInt(hex, 16));
+    }
+
+    public void addText(String text, int x, int y, float scale, int[] rgb) {
+        addText(text, x, y, scale, rgb[0], rgb[1], rgb[2]);
+    }
 }
