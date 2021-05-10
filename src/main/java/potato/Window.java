@@ -4,7 +4,7 @@ package potato;
 import org.joml.Vector2f;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
-import potato.fonts.CFont;
+import potato.fonts.StaticText;
 import potato.fonts.Text;
 import potato.listeners.KeyListener;
 import potato.listeners.MouseListener;
@@ -93,18 +93,17 @@ public class Window {
         }
 
         // Make the OpenGL context current, whatever that means.
+        // a lot of stuff breaks if this isn't done
         glfwMakeContextCurrent(glfwWindow);
         GL.createCapabilities();
 
         // Enable v-sync
-        // setting this to 1 will make the fps flop 55 - 65 fps
-        // setting this to 0 will run this at about 5K to 7K fps
+        // setting this to 1 will make the fps match the monitor's refresh rate
+        // setting this to 0 will run this at maximum effort
         glfwSwapInterval(0);
 
         // Make the window visible
         glfwShowWindow(glfwWindow);
-
-
     }
 
     private void setCallbacks() {
@@ -135,6 +134,9 @@ public class Window {
         glClearColor(1, 1, 1, 1);
 
         Text text = new Text(64);
+        StaticText test = new StaticText(64);
+        test.setLabel("Test", 200, 200, 64, 60, 60, 60);
+
         Random random = new Random();
         while (!glfwWindowShouldClose(glfwWindow)) {
             if (frameTime >= perFrame) {
@@ -143,17 +145,19 @@ public class Window {
                         50, 50, 64, 0xFF00AB0);
                 frameTime = 0;
                 glClear(GL_COLOR_BUFFER_BIT);
+
                 text.addText("Hello world!", 200, 200, 64, 0xFF00AB0);
                 text.addText("My name is SuperTapood!", 100, 300, 70, 0xAA01BB);
                 text.addText("Test text", 300, 400, 64, 170, 1, 187);
-                text.addText("Test text[]", 300, 400, 64, new int[]{170, 1, 187});
 
                 StringBuilder message = new StringBuilder();
                 for (int i = 0; i < 10; i++) {
                     message.append((char) (random.nextInt('z' - 'a') + 'a'));
                 }
                 text.addText(message.toString(), 200, 400, 64, 0xAA01BB);
+                test.render();
                 text.flushBatch();
+
                 glfwSwapBuffers(glfwWindow);
             }
             glfwPollEvents();
@@ -176,24 +180,6 @@ public class Window {
         glfwTerminate();
         Objects.requireNonNull(glfwSetErrorCallback(null)).free();
     }
-
-//    public void addScene(String name, Scene scene) {
-//        scenes.put(name, scene);
-//    }
-//
-//    public Scene getScene(String name) {
-//        return scenes.get(name);
-//    }
-//
-//    public void setCurrentScene(Scene scene) {
-//        currentScene = scene;
-//        currentScene.start(this);
-//    }
-//
-//    public void setCurrentScene(String name) {
-//        Scene scene = getScene(name);
-//        setCurrentScene(scene);
-//    }
 
     public Camera getCamera() {
         return this.camera;

@@ -8,6 +8,5 @@ public class GlobalData {
     // this may cause NullPointerException if invoked before a window is created
     public static Window windowPtr = null;
     public static String defaultFont;
-    // default fps is 60
-    public static float FPS = 1f;
+    public static float FPS = 60f;
 }
