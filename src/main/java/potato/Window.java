@@ -41,11 +41,6 @@ public class Window {
             1, 2, 3
     };
     private long glfwWindow;
-//    private Scene currentScene;
-
-    private CFont font;
-    private int vao;
-
 
     public Window(int width, int height, String title) {
         this.width = width;
@@ -53,10 +48,10 @@ public class Window {
         this.title = title;
         this.mouseListener = new MouseListener();
         this.keyListener = new KeyListener();
-//        this.currentScene = new Scene(this);
         this.camera = new Camera(new Vector2f(0, 0));
+        // store a pointer to this window in the GlobalData class to enable neat access to it
+        GlobalData.windowPtr = this;
         init();
-        font = new CFont("C:/Windows/Fonts/Arial.ttf", 64);
     }
 
     public void init() {
