@@ -14,4 +14,10 @@ public class GlobalData {
     public static float FPS = 60f;
     public static MouseListener mouseListener;
     public static KeyListener keyListener;
+    public static float frameTime = 0f;
+    public static float fps = 0f;
+
+    public static void setFps(float f) {
+        GlobalData.fps = Math.round(f);
+    }
 }
