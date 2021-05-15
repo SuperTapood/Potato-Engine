@@ -25,8 +25,8 @@ public class Text extends Batch {
         fontShader = new Shader(GlobalData.FONT_SHADER);
         super.shader = fontShader;
         super.font = font;
-        super.initBatch();
         super.fontSize = size;
+        super.initBatch();
     }
 
     public Text(int size) {

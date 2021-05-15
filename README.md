@@ -6,6 +6,7 @@ note to self - an example documentation thing is at the public Text method in te
 
 todo:
 
+- fix issue where drawing image makes the text disappear
 - create a test scene (frame counter, and button that says exit that closes the window)
 - make sure that scene to scene transition works (use the GlobalData window pointer)
 - clean up the repo of artifacts (and move testing to a separate directory)

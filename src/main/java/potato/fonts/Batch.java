@@ -70,7 +70,7 @@ public class Batch {
     public void flushBatch() {
         // Clear the buffer on the GPU, and then upload the CPU contents, and then draw
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
-        glBufferData(GL_ARRAY_BUFFER, Float.BYTES * VERTEX_SIZE * BATCH_SIZE, GL_DYNAMIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, (long) Float.BYTES * VERTEX_SIZE * BATCH_SIZE, GL_DYNAMIC_DRAW);
         glBufferSubData(GL_ARRAY_BUFFER, 0, vertices);
 
         // Draw the buffer that we just uploaded

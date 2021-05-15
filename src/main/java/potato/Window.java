@@ -139,45 +139,17 @@ public class Window {
 
         //glClearColor(0.1f, 0.09f, 0.1f, 1);
         glClearColor(1, 1, 1, 1);
-
-//        Text text = new Text(64);
-//        StaticText test = new StaticText(64);
-//        test.setLabel("Test", 200, 200, 64, 60, 60, 60);
-//        DynamicText test2 = new DynamicText(64);
-//        test2.setLabel(50, 50, 64, 0xFF00AB0);
-//        Consumer<Void> func = (a) -> stop();
-//        Button button = new Button(50, 50, 50, 50, func);
-
-//        Random random = new Random();
         while (!glfwWindowShouldClose(glfwWindow) && !stop) {
             if (frameTime >= perFrame) {
                 GlobalData.frameTime = frameTime;
                 GlobalData.setFps(1 / frameTime);
-//                 System.out.println(MessageFormat.format("{0}ms, {1} FPS", frameTime, 1 / frameTime));
-//                 test2.setText(MessageFormat.format("{0}ms, {1} FPS", frameTime, 1 / frameTime));
                 frameTime = 0;
                 glClear(GL_COLOR_BUFFER_BIT);
-
-//                text.addText("Hello world!", 200, 200, 64, 0xFF00AB0);
-//                text.addText("My name is SuperTapood!", 100, 300, 70, 0xAA01BB);
-//                text.addText("Test text", 300, 400, 64, 170, 1, 187);
-//
-//                StringBuilder message = new StringBuilder();
-//                for (int i = 0; i < 10; i++) {
-//                    message.append((char) (random.nextInt('z' - 'a') + 'a'));
-//                }
-//                text.addText(message.toString(), 200, 400, 64, 0xAA01BB);
-//                test.render();
-//                test2.render();
-//                text.flushBatch();
-                currentScene.render();
+                currentScene.render(dt);
                 glfwSwapBuffers(glfwWindow);
             }
-            System.out.println(mouseListener.getLoc());
-            currentScene.update(dt);
             glfwPollEvents();
 
-//            button.update();
             if (GlobalData.FPS != fps) {
                 fps = GlobalData.FPS;
                 perFrame = 1 / fps;

@@ -69,4 +69,7 @@ public class Potato {
     public void setBlank() {
         blank = true;
     }
+
+    public void render() {
+    }
 }

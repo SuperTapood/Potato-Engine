@@ -8,12 +8,13 @@ import java.util.List;
 
 public class Renderer {
     private final List<RenderBatch> batches;
+    private final int MAX_BATCH_SIZE = 1000;
 
     public Renderer() {
         this.batches = new ArrayList<>();
     }
 
-    public void add(Potato sprite, Window window) {
+    public void add(Potato sprite) {
         boolean added = false;
         for (RenderBatch batch : batches) {
             if (batch.hasRoom() && batch.zIndex() == sprite.zIndex) {
@@ -27,8 +28,7 @@ public class Renderer {
         }
 
         if (!added) {
-            int MAX_BATCH_SIZE = 1000;
-            RenderBatch newBatch = new RenderBatch(MAX_BATCH_SIZE, sprite.zIndex, window);
+            RenderBatch newBatch = new RenderBatch(MAX_BATCH_SIZE, sprite.zIndex);
             newBatch.start();
             batches.add(newBatch);
             newBatch.addSprite(sprite);
@@ -36,9 +36,14 @@ public class Renderer {
         }
     }
 
-    public void render(Window window) {
+    public void renderAll() {
         for (RenderBatch batch : batches) {
-            batch.render(window);
+            batch.render();
         }
+    }
+
+    public void render(int index) {
+        int batchIndex = index / MAX_BATCH_SIZE;
+        batches.get(batchIndex).render(index % 1000);
     }
 }

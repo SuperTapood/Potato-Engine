@@ -20,6 +20,7 @@ public class Scene {
 
     public void add(Potato obj) {
         objects.add(obj);
+        renderer.add(obj);
     }
 
     public void add(Text obj) {
@@ -34,20 +35,8 @@ public class Scene {
         objects.add(obj);
     }
 
-    public void render() {
-        for (Object object : objects) {
-            try {
-                Method func = object.getClass().getMethod("render", Object.class);
-                func.invoke(object, (Object) null);
-            } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException ignored) {
-                ignored.printStackTrace();
-                System.exit(420);
-            }
-        }
-        renderer.render(GlobalData.windowPtr);
-    }
-
-    public void update(float dt) {
+    public void render(float dt) {
+        int rendererIndex = 0;
         for (Object object : objects) {
             try {
                 Method func = object.getClass().getMethod("update", Object.class);
@@ -57,8 +46,13 @@ public class Scene {
                     Method func = object.getClass().getMethod("render", Object.class);
                     func.invoke(object, dt);
                 } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException b) {
-                    b.printStackTrace();
-                    System.exit(69);
+                    try {
+                        this.renderer.render(rendererIndex);
+                        rendererIndex++;
+                    } catch (Exception c) {
+                        c.printStackTrace();
+                        System.exit(69);
+                    }
                 }
             }
         }

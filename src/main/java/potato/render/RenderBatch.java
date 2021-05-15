@@ -3,6 +3,7 @@ package potato.render;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 import potato.AssetPool;
+import potato.GlobalData;
 import potato.Window;
 
 import java.util.ArrayList;
@@ -30,9 +31,9 @@ public class RenderBatch implements Comparable<RenderBatch> {
     private boolean hasRoom;
     private int vaoID, vboID;
 
-    public RenderBatch(int maxBatchSize, int zIndex, Window window) {
+    public RenderBatch(int maxBatchSize, int zIndex) {
         this.zIndex = zIndex;
-        shader = AssetPool.getShader("src/main/java/potato/shaders/default.glsl");
+        shader = AssetPool.getShader(GlobalData.DEFAULT_SHADER_PATH);
         this.sprites = new Potato[maxBatchSize];
         this.maxBatchSize = maxBatchSize;
 
@@ -52,7 +53,7 @@ public class RenderBatch implements Comparable<RenderBatch> {
         // Allocate space for vertices
         vboID = glGenBuffers();
         glBindBuffer(GL_ARRAY_BUFFER, vboID);
-        glBufferData(GL_ARRAY_BUFFER, vertices.length * Float.BYTES, GL_DYNAMIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, (long) vertices.length * Float.BYTES, GL_DYNAMIC_DRAW);
 
         // Create and upload indices buffer
         int eboID = glGenBuffers();
@@ -93,7 +94,6 @@ public class RenderBatch implements Comparable<RenderBatch> {
         this.sprites[index] = spr;
         this.numSprites++;
 
-        System.out.println(spr.getTexture());
         if (spr.getTexture() != null) {
             if (!textures.contains(spr.getTexture())) {
                 textures.add(spr.getTexture());
@@ -108,7 +108,8 @@ public class RenderBatch implements Comparable<RenderBatch> {
         }
     }
 
-    public void render(Window window) {
+    public void render() {
+        Window window = GlobalData.windowPtr;
         boolean rebufferData = false;
         for (int i = 0; i < numSprites; i++) {
             Potato spr = sprites[i];
@@ -128,10 +129,49 @@ public class RenderBatch implements Comparable<RenderBatch> {
         shader.uploadMat4f("uProjection", window.getCamera().getProjectionMatrix());
         shader.uploadMat4f("uView", window.getCamera().getViewMatrix());
         for (int i = 0; i < textures.size(); i++) {
-            System.out.println(textures.get(i));
             glActiveTexture(GL_TEXTURE0 + i + 1);
             textures.get(i).bind();
         }
+        shader.uploadIntArray("uTextures", texSlots);
+
+        glBindVertexArray(vaoID);
+        glEnableVertexAttribArray(0);
+        glEnableVertexAttribArray(1);
+
+        glDrawElements(GL_TRIANGLES, this.numSprites * 6, GL_UNSIGNED_INT, 0);
+
+        glDisableVertexAttribArray(0);
+        glDisableVertexAttribArray(1);
+        glBindVertexArray(0);
+
+        for (Texture texture : textures) {
+            texture.unbind();
+        }
+        shader.detach();
+    }
+
+    public void render(int index) {
+        Window window = GlobalData.windowPtr;
+        boolean rebufferData = false;
+        Potato spr = sprites[index];
+        if (spr.isDirty()) {
+            loadVertexProperties(index);
+            spr.setClean();
+            rebufferData = true;
+        }
+        if (rebufferData) {
+            glBindBuffer(GL_ARRAY_BUFFER, vboID);
+            glBufferSubData(GL_ARRAY_BUFFER, 0, vertices);
+        }
+
+        // Use shader
+        shader.use();
+        shader.uploadMat4f("uProjection", window.getCamera().getProjectionMatrix());
+        shader.uploadMat4f("uView", window.getCamera().getViewMatrix());
+
+        glActiveTexture(GL_TEXTURE0 + index + 1);
+        textures.get(index).bind();
+
         shader.uploadIntArray("uTextures", texSlots);
 
         glBindVertexArray(vaoID);
