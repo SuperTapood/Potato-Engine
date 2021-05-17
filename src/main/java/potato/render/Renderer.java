@@ -1,7 +1,5 @@
 package potato.render;
 
-import potato.Window;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
