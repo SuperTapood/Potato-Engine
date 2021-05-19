@@ -16,7 +16,7 @@ import static org.lwjgl.opengl.GL20C.glVertexAttribPointer;
 import static org.lwjgl.opengl.GL30.glBindVertexArray;
 import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
-public class RenderBatch implements Comparable<RenderBatch> {
+public class RenderBatch {
 
     private final int VERTEX_SIZE = 9;
 
@@ -26,13 +26,11 @@ public class RenderBatch implements Comparable<RenderBatch> {
     private final List<Texture> textures;
     private final int maxBatchSize;
     private final Shader shader;
-    private final int zIndex;
     private int numSprites;
     private boolean hasRoom;
     private int vaoID, vboID;
 
-    public RenderBatch(int maxBatchSize, int zIndex) {
-        this.zIndex = zIndex;
+    public RenderBatch(int maxBatchSize) {
         shader = AssetPool.getShader(GlobalData.DEFAULT_SHADER_PATH);
         this.sprites = new Potato[maxBatchSize];
         this.maxBatchSize = maxBatchSize;
@@ -110,19 +108,12 @@ public class RenderBatch implements Comparable<RenderBatch> {
 
     public void render() {
         Window window = GlobalData.windowPtr;
-        boolean rebufferData = false;
         for (int i = 0; i < numSprites; i++) {
             Potato spr = sprites[i];
-            if (spr.isDirty()) {
-                loadVertexProperties(i);
-                spr.setClean();
-                rebufferData = true;
-            }
+            loadVertexProperties(i);
         }
-        if (rebufferData) {
-            glBindBuffer(GL_ARRAY_BUFFER, vboID);
-            glBufferSubData(GL_ARRAY_BUFFER, 0, vertices);
-        }
+        glBindBuffer(GL_ARRAY_BUFFER, vboID);
+        glBufferSubData(GL_ARRAY_BUFFER, 0, vertices);
 
         // Use shader
         shader.use();
@@ -154,15 +145,9 @@ public class RenderBatch implements Comparable<RenderBatch> {
         Window window = GlobalData.windowPtr;
         boolean rebufferData = false;
         Potato spr = sprites[index];
-        if (spr.isDirty()) {
-            loadVertexProperties(index);
-            spr.setClean();
-            rebufferData = true;
-        }
-        if (rebufferData) {
-            glBindBuffer(GL_ARRAY_BUFFER, vboID);
-            glBufferSubData(GL_ARRAY_BUFFER, 0, vertices);
-        }
+        loadVertexProperties(index);
+        glBindBuffer(GL_ARRAY_BUFFER, vboID);
+        glBufferSubData(GL_ARRAY_BUFFER, 0, vertices);
 
         // Use shader
         shader.use();
@@ -278,14 +263,5 @@ public class RenderBatch implements Comparable<RenderBatch> {
 
     public boolean hasTexture(Texture tex) {
         return this.textures.contains(tex);
-    }
-
-    public int zIndex() {
-        return this.zIndex;
-    }
-
-    @Override
-    public int compareTo(RenderBatch o) {
-        return Integer.compare(this.zIndex, o.zIndex());
     }
 }

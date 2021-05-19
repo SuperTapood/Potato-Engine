@@ -18,10 +18,10 @@ public class CharInfo {
     }
 
     public void calculateTextureCoordinates(int fontWidth, int fontHeight) {
-        float x0 = (float) sourceX / (float) fontWidth;
-        float x1 = (float) (sourceX + width) / (float) fontWidth;
-        float y0 = (float) (sourceY - height) / (float) fontHeight;
-        float y1 = (float) (sourceY) / (float) fontHeight;
+        float x0 = (float)sourceX / (float)fontWidth;
+        float x1 = (float)(sourceX + width) / (float)fontWidth;
+        float y0 = (float)(sourceY - height) / (float)fontHeight;
+        float y1 = (float)(sourceY) / (float)fontHeight;
 
         textureCoordinates[0] = new Vector2f(x0, y1);
         textureCoordinates[1] = new Vector2f(x1, y0);
