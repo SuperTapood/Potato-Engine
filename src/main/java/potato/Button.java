@@ -3,8 +3,8 @@ package potato;
 import java.util.function.Consumer;
 
 public class Button {
-    private int x, y, w, h;
-    private Consumer<Void> f;
+    public int x, y, w, h;
+    public Consumer<Void> f;
 
     public Button(int xPos, int yPos, int width, int height, Consumer<Void> resp) {
         x = xPos;

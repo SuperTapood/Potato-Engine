@@ -1,11 +1,13 @@
 package potato.render;
 
+import potato.Core;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Renderer {
-    private final List<RenderBatch> batches;
-    private final int MAX_BATCH_SIZE = 1000;
+public class Renderer extends Core {
+    public final List<RenderBatch> batches;
+    public final int MAX_BATCH_SIZE = 1000;
 
     public Renderer() {
         this.batches = new ArrayList<>();

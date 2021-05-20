@@ -18,17 +18,17 @@ import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
 public class RenderBatch {
 
-    private final int VERTEX_SIZE = 9;
+    public final int VERTEX_SIZE = 9;
 
-    private final Potato[] sprites;
-    private final float[] vertices;
-    private final int[] texSlots = {0, 1, 2, 3, 4, 5, 6, 7};
-    private final List<Texture> textures;
-    private final int maxBatchSize;
-    private final Shader shader;
-    private int numSprites;
-    private boolean hasRoom;
-    private int vaoID, vboID;
+    public final Potato[] sprites;
+    public final float[] vertices;
+    public final int[] texSlots = {0, 1, 2, 3, 4, 5, 6, 7};
+    public final List<Texture> textures;
+    public final int maxBatchSize;
+    public final Shader shader;
+    public int numSprites;
+    public boolean hasRoom;
+    public int vaoID, vboID;
 
     public RenderBatch(int maxBatchSize) {
         shader = AssetPool.getShader(GlobalData.DEFAULT_SHADER_PATH);
@@ -175,7 +175,7 @@ public class RenderBatch {
         shader.detach();
     }
 
-    private void loadVertexProperties(int index) {
+    public void loadVertexProperties(int index) {
         Potato sprite = this.sprites[index];
 
         // Find offset within array (4 vertices per sprite)
@@ -227,7 +227,7 @@ public class RenderBatch {
         }
     }
 
-    private int[] generateIndices() {
+    public int[] generateIndices() {
         // 6 indices per quad (3 per triangle)
         int[] elements = new int[6 * maxBatchSize];
         for (int i = 0; i < maxBatchSize; i++) {
@@ -237,7 +237,7 @@ public class RenderBatch {
         return elements;
     }
 
-    private void loadElementIndices(int[] elements, int index) {
+    public void loadElementIndices(int[] elements, int index) {
         int offsetArrayIndex = 6 * index;
         int offset = 4 * index;
 

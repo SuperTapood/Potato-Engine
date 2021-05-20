@@ -4,8 +4,8 @@ import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
 import static org.lwjgl.glfw.GLFW.GLFW_RELEASE;
 
 public class KeyListener {
-    private final boolean[] keyPressed = new boolean[350];
-    private String prev = "";
+    public final boolean[] keyPressed = new boolean[350];
+    public String prev = "";
 
     public void keyCallback(long window, int key, int scancode, int action, int mods) {
         if (action == GLFW_PRESS) {
@@ -19,7 +19,7 @@ public class KeyListener {
         return keyPressed[keyCode];
     }
 
-    private String getCharForNumber(int i) {
+    public String getCharForNumber(int i) {
         return i > 0 && i < 27 ? String.valueOf((char) (i + 64)) : null;
     }
 
@@ -32,7 +32,7 @@ public class KeyListener {
         return output.toString();
     }
 
-    private boolean areKeysEqual(String as, String bs) {
+    public boolean areKeysEqual(String as, String bs) {
         char[] a = as.toCharArray();
         char[] b = bs.toCharArray();
         if (a.length != b.length) {

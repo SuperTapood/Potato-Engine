@@ -11,11 +11,11 @@ import java.util.Map;
 import static org.lwjgl.opengl.GL11.*;
 
 public class CFont {
-    private String filepath;
-    private int fontSize;
+    public String filepath;
+    public int fontSize;
 
-    private int width, height, lineHeight;
-    private Map<Integer, CharInfo> characterMap;
+    public int width, height, lineHeight;
+    public Map<Integer, CharInfo> characterMap;
 
     public int textureId;
 
@@ -82,7 +82,7 @@ public class CFont {
         uploadTexture(img);
     }
 
-    private void uploadTexture(BufferedImage image) {
+    public void uploadTexture(BufferedImage image) {
         // Taken from https://stackoverflow.com/questions/10801016/lwjgl-textures-and-strings
 
         int[] pixels = new int[image.getHeight() * image.getWidth()];

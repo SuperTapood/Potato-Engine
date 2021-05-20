@@ -6,11 +6,11 @@ import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
 import static org.lwjgl.glfw.GLFW.GLFW_RELEASE;
 
 public class MouseListener {
-    private final boolean[] mouseButtonPressed = new boolean[3];
-    private double scrollX, scrollY;
-    private double xPos, yPos, lastY, lastX;
-    private boolean isDragging;
-    private String prev = null;
+    public final boolean[] mouseButtonPressed = new boolean[3];
+    public double scrollX, scrollY;
+    public double xPos, yPos, lastY, lastX;
+    public boolean isDragging;
+    public String prev = null;
 
     public MouseListener() {
         this.scrollX = 0.0;

@@ -8,7 +8,6 @@ public class StaticText {
     public int rgb;
     public Text txt;
     public String text;
-    public Query query = null;
 
     public StaticText(String fontPath, int fontSize) {
         txt = new Text(fontPath, fontSize);
@@ -44,7 +43,7 @@ public class StaticText {
         this.rgb = Integer.parseInt(hex, 16);
     }
 
-    public void render(Object ignored) {
+    public void render() {
         txt.addText(text, x, y, size, rgb);
         txt.flushBatch();
     }

@@ -20,13 +20,6 @@ public class Potato {
         this.lastTransform = transform.copy();
     }
 
-    public void update(float dt) {
-        if (blank) {
-            System.err.println("BLANK");
-            System.exit(1);
-        }
-    }
-
     public Vector4f getColor() {
         return this.color;
     }
@@ -51,8 +44,5 @@ public class Potato {
 
     public void setBlank() {
         blank = true;
-    }
-
-    public void render() {
     }
 }

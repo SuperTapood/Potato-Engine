@@ -25,8 +25,8 @@ public class Text extends Batch {
         fontShader = new Shader(GlobalData.FONT_SHADER);
         super.shader = fontShader;
         super.font = font;
-        super.fontSize = size;
         super.initBatch();
+        super.fontSize = size;
     }
 
     public Text(int size) {
@@ -66,11 +66,13 @@ public class Text extends Batch {
         }
     }
 
+    @Override
     public void addText(String text, int x, int y, float size, int red, int green, int blue) {
         String hex = String.format("%02x%02x%02x", red, green, blue);
         addText(text, x, y, size, Integer.parseInt(hex, 16));
     }
 
+    @Override
     public void addText(String text, int x, int y, float size, int[] rgb) {
         addText(text, x, y, size, rgb[0], rgb[1], rgb[2]);
     }

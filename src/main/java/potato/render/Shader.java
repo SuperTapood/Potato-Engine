@@ -13,12 +13,12 @@ import static org.lwjgl.opengl.GL20.*;
 
 public class Shader {
 
-    private int shaderProgramID;
-    private boolean beingUsed = false;
+    public int shaderProgramID;
+    public boolean beingUsed = false;
 
-    private String vertexSource;
-    private String fragmentSource;
-    private String filepath;
+    public String vertexSource;
+    public String fragmentSource;
+    public String filepath;
 
     public Shader(String filepath) {
         this.filepath = filepath;

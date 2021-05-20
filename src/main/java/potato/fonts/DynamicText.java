@@ -3,6 +3,7 @@ package potato.fonts;
 import potato.GlobalData;
 
 public class DynamicText extends StaticText {
+
     public DynamicText(String fontPath, int fontSize) {
         super(fontPath, fontSize);
     }
@@ -12,60 +13,29 @@ public class DynamicText extends StaticText {
     }
 
     public void setLabel(int x, int y, float size, int rgb) {
-        super.x = x;
-        super.y = y;
-        super.size = size;
-        super.rgb = rgb;
+        this.x = x;
+        this.y = y;
+        this.size = size;
+        this.rgb = rgb;
     }
 
     public void setLabel(int x, int y, float size, int red, int green, int blue) {
         String hex = String.format("%02x%02x%02x", red, green, blue);
-        super.x = x;
-        super.y = y;
-        super.size = size;
-        super.rgb = Integer.parseInt(hex, 16);
+        this.x = x;
+        this.y = y;
+        this.size = size;
+        this.rgb = Integer.parseInt(hex, 16);
     }
 
     public void setLabel(int x, int y, float size, int[] rgb) {
         String hex = String.format("%02x%02x%02x", rgb[0], rgb[1], rgb[2]);
-        super.x = x;
-        super.y = y;
-        super.size = size;
-        super.rgb = Integer.parseInt(hex, 16);
+        this.x = x;
+        this.y = y;
+        this.size = size;
+        this.rgb = Integer.parseInt(hex, 16);
     }
 
     public void setText(String text) {
         super.text = text;
-    }
-
-    public void setQuery(Query query, int x, int y, float size, int rgb) {
-        super.x = x;
-        super.y = y;
-        super.size = size;
-        super.rgb = rgb;
-        super.query = query;
-    }
-
-    public void setQuery(Query query, int x, int y, float size, int red, int green, int blue) {
-        String hex = String.format("%02x%02x%02x", red, green, blue);
-        super.x = x;
-        super.y = y;
-        super.size = size;
-        super.rgb = Integer.parseInt(hex, 16);
-        super.query = query;
-    }
-
-    public void setQuery(Query query, int x, int y, float size, int[] rgb) {
-        String hex = String.format("%02x%02x%02x", rgb[0], rgb[1], rgb[2]);
-        super.x = x;
-        super.y = y;
-        super.size = size;
-        super.rgb = Integer.parseInt(hex, 16);
-        super.query = query;
-    }
-
-    public void render(Object ignored) {
-        super.text = query.toString();
-        super.render(ignored);
     }
 }

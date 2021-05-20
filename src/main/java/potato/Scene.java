@@ -39,22 +39,16 @@ public class Scene {
         int rendererIndex = 0;
         for (Object object : objects) {
             try {
-                Method func = object.getClass().getMethod("update", Object.class);
+                Method func = object.getClass().getMethod("render", float.class);
                 func.invoke(object, dt);
-            } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException a) {
-                try {
-                    Method func = object.getClass().getMethod("render", Object.class);
-                    func.invoke(object, dt);
-                } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException b) {
-                    try {
-                        this.renderer.render(rendererIndex);
-                        rendererIndex++;
-                    } catch (Exception c) {
-                        c.printStackTrace();
-                        System.exit(69);
-                    }
+            } catch (Exception e) {
+//                try {
+//                    renderer.render(rendererIndex);
+//                    rendererIndex++;
+//                } catch (Exception e) {
+                    e.printStackTrace();
+                    System.exit(69);
                 }
             }
         }
     }
-}
